@@ -1,0 +1,33 @@
+.matchHistory2 {
+    margin-top: 3%;
+}
+
+.box {
+    display: flex;
+    justify-content: center; /* Center the child elements horizontally */
+}
+
+
+
+.search {
+    position: relative;
+    width: 800px;
+    margin: 0 auto; 
+}
+
+input {
+    width: 100%;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 25px;
+}
+
+img {
+    position: absolute;
+    width: 25px;
+    top: 10px;
+    right: 12px;
+    margin: 0;
+}
+

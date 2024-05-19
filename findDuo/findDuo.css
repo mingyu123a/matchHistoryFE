@@ -1,0 +1,22 @@
+#findDuo {
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 10px;
+    margin-left: 5%;
+    margin-right: 25%;
+    margin-top: 15%;
+    width: 10%;
+    height: 50px;
+}
+
+.box2 {
+    display: flex;
+}
+.myContainer {
+    border: 1px solid gray;
+    background-color: white;
+    margin-left: 30%;
+    margin-top: 10%;
+    width: 20%;
+    height: 300px;
+}

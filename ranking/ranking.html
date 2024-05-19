@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="../main.css" rel="stylesheet">
+  <link href="../ranking/ranking.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="../login.js"></script>
+</head>
+
+<body>
+  <div class="top">
+
+    <div class="menu">
+      <div class="container container-one" onclick="location.href='../index/index.html'">
+        <button>
+          Main
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../matchHistory/matchHistory.html'">
+        <button>
+          전적검색
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../findDuo/findDuo.html'">
+        <button>
+          듀오찾기
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../community/community.html'">
+        <button>
+          커뮤니티
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../ranking/ranking.html'">
+        <button>
+          랭킹
+          <div class="fill-one"></div>
+        </button>
+      </div>
+      <span class="top_right">
+        <div class="container container-one" onclick="location.href='../request/request.html'">
+          <button>
+            요청목록
+            <div class="fill-one"></div>
+          </button>
+        </div>
+
+        <div class="container container-one" onclick="location.href='../login/login.html'">
+          <button class="log_in_out_btn" onclick="log_out()">
+            로그인
+            <div class="fill-one"></div>
+          </button>
+        </div>
+
+        <div class="container container-one" onclick="location.href='../signUp/signUp.html'">
+          <button>
+            회원가입
+            <div class="fill-one"></div>
+          </button>
+        </div>
+      </span>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>순위</th>
+        <th>소환사명</th>
+        <th>티어</th>
+        <th>LP</th>
+        <th>승률</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="ranking"></td>
+        <td class="rankerName"></td>
+        <td class="rankTier"></td>
+        <td class="lp"></td>
+        <td class="win_lose_per"></td>
+      </tr>
+      <tr>
+        <td class="ranking"></td>
+        <td class="rankerName"></td>
+        <td class="rankTier"></td>
+        <td class="lp"></td>
+        <td class="win_lose_per"></td>
+      </tr>
+      <tr>
+        <td class="ranking"></td>
+        <td class="rankerName"></td>
+        <td class="rankTier"></td>
+        <td class="lp"></td>
+        <td class="win_lose_per"></td>
+      </tr>
+      <tr>
+        <td class="ranking"></td>
+        <td class="rankerName"></td>
+        <td class="rankTier"></td>
+        <td class="lp"></td>
+        <td class="win_lose_per"></td>
+      </tr>
+      <tr>
+        <td class="ranking"></td>
+        <td class="rankerName"></td>
+        <td class="rankTier"></td>
+        <td class="lp"></td>
+        <td class="win_lose_per"></td>
+      </tr>
+      <tr>
+        <td class="ranking"></td>
+        <td class="rankerName"></td>
+        <td class="rankTier"></td>
+        <td class="lp"></td>
+        <td class="win_lose_per"></td>
+      </tr>
+      <tr>
+        <td class="ranking"></td>
+        <td class="rankerName"></td>
+        <td class="rankTier"></td>
+        <td class="lp"></td>
+        <td class="win_lose_per"></td>
+      </tr>
+      <tr>
+        <td class="ranking"></td>
+        <td class="rankerName"></td>
+        <td class="rankTier"></td>
+        <td class="lp"></td>
+        <td class="win_lose_per"></td>
+      </tr>
+      <tr>
+        <td class="ranking"></td>
+        <td class="rankerName"></td>
+        <td class="rankTier"></td>
+        <td class="lp"></td>
+        <td class="win_lose_per"></td>
+      </tr>
+      <tr>
+        <td class="ranking"></td>
+        <td class="rankerName"></td>
+        <td class="rankTier"></td>
+        <td class="lp"></td>
+        <td class="win_lose_per"></td>
+      </tr>
+
+      <!-- 여기에 다른 순위 정보를 추가할 수 있습니다 -->
+    </tbody>
+
+  </table>
+  <div id="button_container">
+
+    <input type="button" class="table_button" value="1" onclick="getRankingList(0)" />
+    <input type="button" class="table_button" value="2" onclick="getRankingList(1)" />
+    <input type="button" class="table_button" value="3" onclick="getRankingList(2)" />
+    <input type="button" class="table_button" value="4" onclick="getRankingList(3)"></input>
+    <input type="button" class="table_button" value="5" onclick="getRankingList(4)"></input>
+    <input type="button" class="table_button" value="6" onclick="getRankingList(5)"></input>
+    <input type="button" class="table_button" value="7" onclick="getRankingList(6)"></input>
+    <input type="button" class="table_button" value="8" onclick="getRankingList(7)"></input>
+    <input type="button" class="table_button" value="9" onclick="getRankingList(8)"></input>
+    <input type="button" class="table_button" value="10" onclick="getRankingList(9)"></input>
+  </div>
+
+
+  <div class="bottom">
+    <div class="pink">
+      <div></div>
+    </div>
+  </div>
+</body>
+<script>
+  function a() {
+    console.log('hi');
+  }
+  page = 0
+  function getRankingList(page) {
+    page = page * 10
+    $.ajax({
+      url: "https://kr.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/CHALLENGER/I?page=1&api_key=RGAPI-26deab30-db3b-455a-93d7-2417846b690c",
+      method: 'get',
+      success: function (result) {
+        gameNameTagLine = []
+        ranking_box = document.getElementsByClassName("ranking")
+        rankerName_box = document.getElementsByClassName("rankerName")
+        tier_box = document.getElementsByClassName("rankTier")
+        lp_box = document.getElementsByClassName("lp")
+        win_lose_per_box = document.getElementsByClassName("win_lose_per")
+        summonerId = []
+        // if click page 20 
+        for (let i = 0 + page; i < 10 + page; i++) {
+          summonerId[i - page] = `${result[i].summonerId}`
+          tier = result[i].tier
+          leaguePoints = result[i].leaguePoints
+          wins = result[i].wins
+          losses = result[i].losses
+          per = wins / (wins + losses) * 100
+          per = per.toFixed(2);
+          tier_box[i - page].innerHTML = `${tier}`
+          lp_box[i - page].innerHTML = `${leaguePoints}점`
+          win_lose_per_box[i - page].innerHTML = `${wins}승 ${losses}패 (${per}%)`
+        }
+        console.log(summonerId)
+        console.log("ajax");
+        $.ajax({
+          url: "http://localhost:8080/history/ranking",
+          method: 'post',
+          contentType: 'application/json',
+          data:
+            JSON.stringify(summonerId),
+          success: function (result) {
+            console.log(result)
+
+            for (let i = 0; i < 10; i++) {
+              rankerName_box[i].innerHTML = result[i];
+              ranking_box[i].innerHTML = `${page + i + 1}위`;
+            }
+          },
+          error: function (request, status, error2) {
+            alert("error");
+          }
+        });
+
+      },
+      error: function (request, status, error) {
+        alert("error");
+        console.log(error);
+      }
+    });
+  }
+  window.onload = function () {
+    getRankingList(0);
+    log_in();
+  }
+
+
+
+
+</script>
+
+</html>

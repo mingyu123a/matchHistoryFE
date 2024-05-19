@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="../main.css" rel="stylesheet">
+  <link href="../matchHistory/matchHistory.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="../login.js"></script>
+  <script>
+    apiurl = "localhost:8080";
+    async function search() {
+      console.log('search')
+      var summoner = document.getElementById('summoner').value;
+      console.log("Summoner:", summoner);
+      const abc = summoner.split('#');
+      gameName = abc[0]
+      TagLine = abc[1]
+
+      console.log(abc[0])
+      console.log(abc[1])
+      console.log(typeof (abc[0]))
+      console.log(typeof (abc[1]))
+      $.ajax({
+        url: "http://" + apiurl + "/history/MatchHistory?gameName=" + gameName + "&tagLine=" + TagLine,
+        method: 'get',
+        success: function (result) {
+          // alert(result);
+          console.log(result);
+          alert();
+          localStorage.setItem("matchListResponse", result);
+          localStorage.setItem("myName", document.getElementById('summoner').value);
+        },
+        error: function (request, status, error) {
+          alert("error");
+          console.log(error);
+        }
+      });
+      $.ajax({
+        url: "http://" + apiurl + "/history/rankGameTier?gameName=" + gameName + "&tagLine=" + TagLine,
+        method: 'get',
+        success: function (response) {
+          // alert(response);
+          console.log(response);
+          tierResponse = JSON.stringify(response)
+          localStorage.setItem("tierResponse", tierResponse)
+          location.href = "matchRedirect.html"
+        },
+        error: function (request, status, error) {
+          alert("error");
+          console.log(error);
+        }
+      });
+    }
+
+
+    /* function tier(result) {
+ 
+         $.ajax({
+             url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + result[0] + "?api_key=RGAPI-3bac6db6-1a93-4c5f-8991-30e6e9aa2ef8",
+             method: 'get',
+             success: function (res) {
+                 alert("요청되었습니다.");
+                 console.log(res)
+                 localStorage.setItem("res", JSON.stringify(res))
+                 location.href = '../matchHistory/matchRedirect.html';
+ 
+             },
+         });
+         
+     }*/
+
+    window.onload = function () {
+      log_in();
+
+    }
+
+  </script>
+</head>
+
+<body>
+  <div class="top">
+
+    <div class="menu">
+      <div class="container container-one" onclick="location.href='../index/index.html'">
+        <button>
+          Main
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../matchHistory/matchHistory.html'">
+        <button>
+          전적검색
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../findDuo/findDuo.html'">
+        <button>
+          듀오찾기
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../community/community.html'">
+        <button>
+          커뮤니티
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../ranking/ranking.html'">
+        <button>
+          랭킹
+          <div class="fill-one"></div>
+        </button>
+      </div>
+      <span class="top_right">
+        <div class="container container-one" onclick="location.href='../request/request.html'">
+          <button>
+            요청목록
+            <div class="fill-one"></div>
+          </button>
+        </div>
+
+        <div class="container container-one" onclick="location.href='../login/login.html'">
+          <button class="log_in_out_btn" onclick="log_out()">
+            로그인
+            <div class="fill-one"></div>
+          </button>
+        </div>
+
+        <div class="container container-one" onclick="location.href='../signUp/signUp.html'">
+          <button>
+            회원가입
+            <div class="fill-one"></div>
+          </button>
+        </div>
+      </span>
+    </div>
+  </div>
+  <div class="middle">
+    <div class="matchHistory2">
+      <div class="search">
+        <input type="text" id="summoner" value="시간의 숲#KR9" placeholder="소환사 이름 입력">
+        <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" onclick=search()>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <div class="pink">
+      <div></div>
+    </div>
+  </div>
+</body>
+
+</html>

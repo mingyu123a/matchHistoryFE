@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="../main.css" rel="stylesheet">
+  <link href="../signUp/signUp.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="../login.js"></script>
+  <script>
+    function changeForm(aaa) {
+      event.preventDefault();
+      // 동적으로 폼 요소 변경
+      console.log(aaa)
+      document.querySelector('.signup_box form').innerHTML =
+
+        `
+         <input type="text" id="nickname1" placeholder="닉네임" required>
+         <input type="text" id="riot_id1" placeholder="라이엇 id" required>
+         <input type="text" id="tier1" placeholder="티어" required>
+         <input type="password" id="pw1" placeholder="비밀번호" value='' required>
+         <input type="password" id="pw2" placeholder="비밀번호 확인" value='' required>
+         <button id="signUp" type="button" onclick="finish('${aaa}');">완료</button>
+         `;
+    }
+
+    async function finish(aaa) {
+      console.log("id", aaa)
+      var pw1 = document.getElementById('pw1').value;
+      var pw2 = document.getElementById('pw2').value;
+      var nickname1 = document.getElementById('nickname1').value;
+      var tier1 = document.getElementById('tier1').value;
+      var riot_id1 = document.getElementById('riot_id1').value;
+      if (pw1 != pw2) {
+        alert("비밀번호가 일치하지 않습니다")
+        return;
+      }
+      console.log("PW", pw1);
+      console.log("nickname", nickname1);
+      $.ajax({
+        url: "http://localhost:8080/auth/signUp",
+        method: 'post',
+        contentType: 'application/json',
+        data:
+          JSON.stringify({
+            "id1": aaa,
+            "pw1": pw1,
+            "nickname1": nickname1,
+            "riot_id1": riot_id1,
+            "tier1": tier1
+          }),
+        success: function (result) {
+          if (result == "email중복") {
+            alert(result);
+            window.location.reload();
+
+          }
+          if (result == "성공") {
+            alert(result);
+            location.href = "../index/index.html"
+          }
+          else {
+            alert(result)
+          }
+        },
+        error: function (request, status, error) {
+          alert("error");
+          console.log(error);
+        }
+      });
+    }
+
+    window.onload = function () {
+      log_in();
+
+    }
+  </script>
+</head>
+
+<body>
+
+  <div class="top">
+
+    <div class="menu">
+      <div class="container container-one" onclick="location.href='../index/index.html'">
+        <button>
+          Main
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../matchHistory/matchHistory.html'">
+        <button>
+          전적검색
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../findDuo/findDuo.html'">
+        <button>
+          듀오찾기
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../community/community.html'">
+        <button>
+          커뮤니티
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../ranking/ranking.html'">
+        <button>
+          랭킹
+          <div class="fill-one"></div>
+        </button>
+      </div>
+      <span class="top_right">
+        <div class="container container-one" onclick="location.href='../request/request.html'">
+          <button>
+            요청목록
+            <div class="fill-one"></div>
+          </button>
+        </div>
+
+        <div class="container container-one" onclick="location.href='../login/login.html'">
+          <button class="log_in_out_btn" onclick="log_out()">
+            로그인
+            <div class="fill-one"></div>
+          </button>
+        </div>
+
+        <div class="container container-one" onclick="location.href='../signUp/signUp.html'">
+          <button>
+            회원가입
+            <div class="fill-one"></div>
+          </button>
+        </div>
+      </span>
+    </div>
+  </div>
+
+  <div class="signup_box">
+    <h2>회원가입</h2>
+    <form onsubmit="changeForm(document.getElementById('id1').value)">
+      <input type="email" id="id1" placeholder="이메일" required>
+      <button id="signUp" type="submit">완료</button>
+    </form>
+    <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=6802cec4469f116bf22d222a9b62a871&redirect_uri=http://127.0.0.1:5500/project/Match/login/redirect.html
+            ">
+      <img class="kakao" src="../img/kakao_login_medium_wide.png" alt="">
+    </a>
+  </div>
+  <div class="bottom">
+    <div class="pink">
+      <div></div>
+    </div>
+  </div>
+</body>
+
+</html>

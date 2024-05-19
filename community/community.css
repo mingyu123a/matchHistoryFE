@@ -1,0 +1,19 @@
+#list {
+    border: 1px solid gray;
+    background-color: white;
+    width: 60%;
+    height: 700px;
+    margin-left: 20%;
+    margin-top: 0%;
+}
+
+#filter {
+    color: rgb(243, 99, 123);
+    background-color: white;
+    border: 1px solid red;
+    width: 3%;
+    margin-left: 20%;
+    margin-top: 1%;
+
+
+}

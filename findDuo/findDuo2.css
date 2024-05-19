@@ -1,0 +1,42 @@
+.box2 {
+    display: flex;
+}
+
+.myContainer {
+    border: 1px solid gray;
+    background-color: white;
+    margin-left: 20%;
+    margin-top: 10%;
+    width: 20%;
+    height: 200px;
+}
+
+.duoContainer {
+    border: 1px solid gray;
+    background-color: white;
+    margin-left: 15%;
+    margin-top: 10%;
+    width: 20%;
+    height: 200px;
+}
+
+#submit {
+
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 10px;
+    width: 15%;
+    height: 50px;
+    margin-left: 40%;
+    margin-top: 3%;
+
+}
+
+.myContainer {
+    border: 1px solid gray;
+    background-color: white;
+    margin-left: 20%;
+    margin-top: 10%;
+    width: 20%;
+    height: 200px;
+}

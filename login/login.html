@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form</title>
+  <link href="../main.css" rel="stylesheet">
+  <link href="../login/login.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="../login.js"></script>
+</head>
+
+<body>
+  <div class="top">
+
+    <div class="menu">
+      <div class="container container-one" onclick="location.href='../index/index.html'">
+        <button>
+          Main
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../matchHistory/matchHistory.html'">
+        <button>
+          전적검색
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../findDuo/findDuo.html'">
+        <button>
+          듀오찾기
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../community/community.html'">
+        <button>
+          커뮤니티
+          <div class="fill-one"></div>
+        </button>
+      </div>
+
+      <div class="container container-one" onclick="location.href='../ranking/ranking.html'">
+        <button>
+          랭킹
+          <div class="fill-one"></div>
+        </button>
+      </div>
+      <span class="top_right">
+        <div class="container container-one" onclick="location.href='../request/request.html'">
+          <button>
+            요청목록
+            <div class="fill-one"></div>
+          </button>
+        </div>
+
+        <div class="container container-one" onclick="location.href='../login/login.html'">
+          <button class="log_in_out_btn" onclick="log_out()">
+            로그인
+            <div class="fill-one"></div>
+          </button>
+        </div>
+
+        <div class="container container-one" onclick="location.href='../signUp/signUp.html'">
+          <button>
+            회원가입
+            <div class="fill-one"></div>
+          </button>
+        </div>
+      </span>
+    </div>
+  </div>
+  <div class="login_box">
+    <h2>로그인</h2>
+    <form>
+      <input type="text" placeholder="이메일" required>
+      <input type="password" placeholder="비밀번호" required>
+      <button id="submit_btn" type="submit">로그인</button>
+    </form>
+    <div></div>
+    <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=6802cec4469f116bf22d222a9b62a871&redirect_uri=http://127.0.0.1:5500/project/Match/login/redirect.html"
+      class="kakao"><img src="../img/kakao_login_medium_wide.png" alt=""></button>
+
+  </div>
+  <div class="bottom">
+    <div class="pink">
+      <div></div>
+    </div>
+  </div>
+</body>
+<script>
+
+  const emailInput = document.querySelector('input[type="text"]');
+  const passwordInput = document.querySelector('input[type="password"]');
+
+
+  document.getElementById('submit_btn').addEventListener('click', function (event) {
+    event.preventDefault();
+
+
+    const loginId = emailInput.value;
+    const password = passwordInput.value;
+
+    $.ajax({
+      method: 'post',
+      url: 'http://localhost:8080/auth/login',
+      async: true,
+      contentType: 'application/json',
+      data: JSON.stringify({
+        "loginId": loginId,
+        "password": password,
+      }),
+      success: function (result) {
+        console.log(result);
+        accessToken = JSON.stringify(result)
+        sessionStorage.setItem("accessToken", accessToken)
+        location.href = "../index/index.html"
+      },
+      error: function (request, status, error) {
+        console.log(error);
+        alert("회원정보가 일치하지 않습니다")
+      }
+    });
+  });
+
+  window.onload = function () {
+    log_in();
+
+  }
+
+</script>
+
+</html>

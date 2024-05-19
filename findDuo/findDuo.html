@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="../main.css" rel="stylesheet">
+    <link href="../findDuo/findDuo.css" rel="stylesheet">
+    <script src="../login.js"></script>
+</head>
+
+<body>
+    <!-- 로그인 했을때만 기능사용가능하게 -->
+    <div class="top">
+
+        <div class="menu">
+          <div class="container container-one" onclick="location.href='../index/index.html'">
+            <button>
+              Main
+              <div class="fill-one"></div>
+            </button>
+          </div>
+    
+          <div class="container container-one"  onclick="location.href='../matchHistory/matchHistory.html'">
+            <button>
+              전적검색
+              <div class="fill-one"></div>
+            </button>
+          </div>
+    
+          <div class="container container-one" onclick="location.href='../findDuo/findDuo.html'">
+            <button>
+              듀오찾기
+              <div class="fill-one"></div>
+            </button>
+          </div>
+    
+          <div class="container container-one" onclick="location.href='../community/community.html'">
+            <button >
+              커뮤니티
+              <div class="fill-one"></div>
+            </button>
+          </div>
+    
+          <div class="container container-one" onclick="location.href='../ranking/ranking.html'">
+            <button>
+              랭킹
+              <div class="fill-one"></div>
+            </button>
+          </div>
+          <span class="top_right">
+            <div class="container container-one" onclick="location.href='../request/request.html'">
+              <button>
+                요청목록
+                <div class="fill-one"></div>
+              </button>
+            </div>
+    
+            <div class="container container-one" onclick="location.href='../login/login.html'">
+              <button class="log_in_out_btn" onclick="log_out()">
+                로그인
+                <div class="fill-one"></div>
+              </button>
+            </div>
+    
+            <div class="container container-one"  onclick="location.href='../signUp/signUp.html'">
+              <button>
+                회원가입
+                <div class="fill-one"></div>
+              </button>
+            </div>
+          </span>
+        </div>
+      </div>
+
+    <div class="middle">
+        <div class="box2">
+            <div class="myContainer">내 모스트 챔피언과 티어</div>
+            <div id="findDuo" onclick="location.href='findDuo2.html'">듀오찾기</div>
+        </div>
+
+    </div>
+    <div class="bottom">
+        <div class="pink">
+            <div></div>
+        </div>
+    </div>
+</body>
+<script>
+  window.onload = function () {
+  log_in();
+
+      }
+</script>
+</html>
