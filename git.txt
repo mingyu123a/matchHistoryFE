@@ -1,0 +1,8 @@
+받을 때
+git pull origin main
+
+
+올릴때
+git add .
+git commit -m "커밋 메세지"
+git push origin main
