@@ -6,3 +6,6 @@ git pull origin main
 git add .
 git commit -m "커밋 메세지"
 git push origin main
+
+새로운 컴퓨터
+git clone https://github.com/mingyu123a/matchHistoryFE.git

@@ -13,233 +13,248 @@
         var matchList = localStorage.getItem('matchListResponse')
         matchList = matchList.split(',')
         var detail = '';
-        function getMatchDetails() {
-            /* for(let matchNum=0; i<10; i++){
-             }*/
-            summoner = localStorage.getItem("myName") //소환사명
-            myNickName = summoner.split('#') //내 닉네임
-            tierResponse = localStorage.getItem("tierResponse") //티어 결과
-            localStorage.clear(); //로컬스토리지 제거~
-            tierResponse = JSON.parse(tierResponse) //티어 결과 json화
+        var runes = [1,2,3,4,5,6,5,5,5,5];
+        function getMatchDetails(data) {
+            return new Promise((resolve, reject) => {
+                summoner = localStorage.getItem("myName") //소환사명
+                myNickName = summoner.split('#') //내 닉네임
+                tierResponse = localStorage.getItem("tierResponse") //티어 결과
+                // localStorage.clear(); //로컬스토리지 제거~
+                tierResponse = JSON.parse(tierResponse) //티어 결과 json화
 
-            var runes = detail.info.participants[myAccountIndex].perks.styles[0].selections[0].perk;
-            runesdatasUrl = "https://ddragon.leagueoflegends.com/cdn/14.9.1/data/en_US/runesReforged.json";
-            fetch(runesdatasUrl)
-                .then(response => response.json()) // 응답을 JSON으로 변환
-                .then(data => {
-                    var filteredData = data.filter(item => item.key === `${runes}`);
-                    console.log(data);
-                    getMatchDetails(data);
-                })
-                .catch(error => {
-                    // 에러 처리
-                    console.error('Error fetching JSON data:', error);
-                });   
-            var runesImageUrl = "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/"+runes+"_"+filteredData+".png"
-            console.log(runesImageUrl)
 
-            myAccountIndex = 0; //게임내 내 아이디 번호
-            var kda = "default" //kda조회를 위한 변수선언
-            var profile = document.getElementById("top_text")
-            profile.innerHTML = summoner + '\n' + tierResponse.tier + ` ${tierResponse.rank}` + "<br>" + `${tierResponse.leaguPoints} LP` + "<br>" + `${tierResponse.wins}승` + `${tierResponse.losses}패`
+                myAccountIndex = 0; //게임내 내 아이디 번호
+                var kda = "default" //kda조회를 위한 변수선언
+                var profile = document.getElementById("top_text")
+                profile.innerHTML = summoner + '\n' + tierResponse.tier + ` ${tierResponse.rank}` + "<br>" + `${tierResponse.leaguPoints} LP` + "<br>" + `${tierResponse.wins}승` + `${tierResponse.losses}패`
+                match_info = document.getElementsByClassName("match_info");
+                for (let i = 0; i < 10; i++) {
+                    $.ajax({
+                        url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchList[i] + "?api_key=RGAPI-26deab30-db3b-455a-93d7-2417846b690c",
+                        method: 'get',
+                        success: function (detail) {
+                            console.log(detail)
+                           
+                            
+                            let blank = [
+                                {
+                                    "name": detail.info.participants[0].riotIdGameName
+                                },
+                                {
+                                    "name": detail.info.participants[1].riotIdGameName
+                                },
+                                {
+                                    "name": detail.info.participants[2].riotIdGameName
+                                },
+                                {
+                                    "name": detail.info.participants[3].riotIdGameName
+                                },
+                                {
+                                    "name": detail.info.participants[4].riotIdGameName
+                                },
+                                {
+                                    "name": detail.info.participants[5].riotIdGameName
+                                },
+                                {
+                                    "name": detail.info.participants[6].riotIdGameName
+                                },
+                                {
+                                    "name": detail.info.participants[7].riotIdGameName
+                                },
+                                {
+                                    "name": detail.info.participants[8].riotIdGameName
+                                },
+                                {
+                                    "name": detail.info.participants[9].riotIdGameName
+                                }
+                            ]
 
-            for (let i = 0; i < 10; i++) {
-                $.ajax({
-                    url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchList[i] + "?api_key=RGAPI-26deab30-db3b-455a-93d7-2417846b690c",
-                    method: 'get',
-                    success: function (detail) {
 
-                        let blank = [
-                            {
-                                "name": detail.info.participants[0].riotIdGameName
-                            },
-                            {
-                                "name": detail.info.participants[1].riotIdGameName
-                            },
-                            {
-                                "name": detail.info.participants[2].riotIdGameName
-                            },
-                            {
-                                "name": detail.info.participants[3].riotIdGameName
-                            },
-                            {
-                                "name": detail.info.participants[4].riotIdGameName
-                            },
-                            {
-                                "name": detail.info.participants[5].riotIdGameName
-                            },
-                            {
-                                "name": detail.info.participants[6].riotIdGameName
-                            },
-                            {
-                                "name": detail.info.participants[7].riotIdGameName
-                            },
-                            {
-                                "name": detail.info.participants[8].riotIdGameName
-                            },
-                            {
-                                "name": detail.info.participants[9].riotIdGameName
+
+
+                            console.log(detail)
+                            console.log("tierResponse", tierResponse)
+
+                            //내 인덱스 번호 찾기
+                            for (let i = 0; i < (detail.info.participants.length > 10 ? 16 : 10); i++) {
+
+                                if (detail.info.participants[i].riotIdGameName == myNickName[0]) {
+                                    myAccountIndex = i;
+                                    break;
+                                }
                             }
-                        ]
+
+                            //내 인덱스 번호로 kda찾는 로직
+                            kda = document.getElementsByClassName("kda")
+                            k = detail.info.participants[myAccountIndex].kills
+                            d = detail.info.participants[myAccountIndex].deaths
+                            a = detail.info.participants[myAccountIndex].assists
+                            test = `${k}/${d}/${a}`;
+                            console.log(test);
+
+                            /*
+                            console.log(`
+                            닉네임: ${detail.info.participants[myAccountIndex].riotIdGameName},
+                            태그: ${detail.info.participants[myAccountIndex].riotIdTagline},
+                            킬: ${detail.info.participants[myAccountIndex].kills},
+                            어시스트: ${detail.info.participants[myAccountIndex].assists},
+                            데스: ${detail.info.participants[myAccountIndex].deaths},
+                            챔피언 이름: ${detail.info.participants[myAccountIndex].championName},
+                            챔피언 ID: ${detail.info.participants[myAccountIndex].championId},
+                            소환사 ID: ${detail.info.participants[myAccountIndex].summonerId}`);
+                            */
+
+                            //내가 플레이한 챔피언 찾아서 사진 불러오기
+
+
+                            kill_per = document.getElementsByClassName("kill_per") //킬관여 계산을 위한...
+                            cs = document.getElementsByClassName("cs")
+                            player_red_team = document.getElementsByClassName("player_red_team")
+                            player_blue_team = document.getElementsByClassName("player_blue_team")
+                            if (myAccountIndex <= 4) {
+                                team_kill_score =
+                                    detail.info.participants[0].kills +
+                                    detail.info.participants[1].kills +
+                                    detail.info.participants[2].kills +
+                                    detail.info.participants[3].kills +
+                                    detail.info.participants[4].kills
 
 
 
+                            } else {
+                                team_kill_score =
+                                    detail.info.participants[5].kills +
+                                    detail.info.participants[6].kills +
+                                    detail.info.participants[7].kills +
+                                    detail.info.participants[8].kills +
+                                    detail.info.participants[9].kills
 
-                        console.log(detail)
-                        console.log("tierResponse", tierResponse)
 
-                        //내 인덱스 번호 찾기
-                        for (let i = 0; i < (detail.info.participants.length > 10 ? 16 : 10); i++) {
-
-                            if (detail.info.participants[i].riotIdGameName == myNickName[0]) {
-                                myAccountIndex = i;
-                                break;
                             }
-                        }
 
-                        //내 인덱스 번호로 kda찾는 로직
-                        kda = document.getElementsByClassName("kda")
-                        k = detail.info.participants[myAccountIndex].kills
-                        d = detail.info.participants[myAccountIndex].deaths
-                        a = detail.info.participants[myAccountIndex].assists
-                        test = `${k}/${d}/${a}`;
-                        console.log(test);
+                            kill_per_value = parseInt(((detail.info.participants[myAccountIndex].kills + detail.info.participants[myAccountIndex].assists) / team_kill_score) * 100)
+                            cs_value = detail.info.participants[myAccountIndex].totalMinionsKilled + detail.info.participants[myAccountIndex].neutralMinionsKilled
+                            console.log(detail.info.gameDuration)
+                            avg_cs_value = (cs_value / (detail.info.gameDuration / 60)).toFixed(1);
 
-                        /*
-                        console.log(`
-                        닉네임: ${detail.info.participants[myAccountIndex].riotIdGameName},
-                        태그: ${detail.info.participants[myAccountIndex].riotIdTagline},
-                        킬: ${detail.info.participants[myAccountIndex].kills},
-                        어시스트: ${detail.info.participants[myAccountIndex].assists},
-                        데스: ${detail.info.participants[myAccountIndex].deaths},
-                        챔피언 이름: ${detail.info.participants[myAccountIndex].championName},
-                        챔피언 ID: ${detail.info.participants[myAccountIndex].championId},
-                        소환사 ID: ${detail.info.participants[myAccountIndex].summonerId}`);
-                        */
+                            //팀 전체 킬 / 내 킬 + 어시스트
 
-                        //내가 플레이한 챔피언 찾아서 사진 불러오기
+                            console.log(cs_value)
+                            var championName = detail.info.participants[myAccountIndex].championName;
+                            var runes = detail.info.participants[myAccountIndex].perks.styles[0].selections[0].perk;
 
+                            var champImageUrl = "https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/" + championName + ".png";
 
-                        kill_per = document.getElementsByClassName("kill_per") //킬관여 계산을 위한...
-                        cs = document.getElementsByClassName("cs")
-                        player_red_team = document.getElementsByClassName("player_red_team")
-                        player_blue_team = document.getElementsByClassName("player_blue_team")
-                        if (myAccountIndex <= 4) {
-                            team_kill_score =
-                                detail.info.participants[0].kills +
-                                detail.info.participants[1].kills +
-                                detail.info.participants[2].kills +
-                                detail.info.participants[3].kills +
-                                detail.info.participants[4].kills
+                            var matchHistory = document.getElementsByClassName("matchHistory");
 
+                            player_red_team_html = "";
+                            player_blue_team_html = "";
 
+                            for (let i = 0; i < (detail.info.participants.length > 10 ? 8 : 5); i++) {
+                                player_red_team_html += `<div class="player_red_team">` + detail.info.participants[i].riotIdGameName + `</div>`;
+                            }
+                            for (let i = (detail.info.participants.length > 10 ? 8 : 5);
+                                i < (detail.info.participants.length > 10 ? 16 : 10); i++) {
+                                player_blue_team_html += `<div class="player_blue_team">` + detail.info.participants[i].riotIdGameName + `</div>`;
+                            }
 
-                        } else {
-                            team_kill_score =
-                                detail.info.participants[5].kills +
-                                detail.info.participants[6].kills +
-                                detail.info.participants[7].kills +
-                                detail.info.participants[8].kills +
-                                detail.info.participants[9].kills
+                            matchHistory[i].innerHTML += `
+                        <div class="champ_container">
+                            <div class="info_box">
+                                <div class="match_info"></div>
+                            </div>
 
-
-                        }
-
-                        kill_per_value = parseInt(((detail.info.participants[myAccountIndex].kills + detail.info.participants[myAccountIndex].assists) / team_kill_score) * 100)
-                        cs_value = detail.info.participants[myAccountIndex].totalMinionsKilled + detail.info.participants[myAccountIndex].neutralMinionsKilled
-                        console.log(detail.info.gameDuration)
-                        avg_cs_value = (cs_value / (detail.info.gameDuration / 60)).toFixed(1);
-
-                        //팀 전체 킬 / 내 킬 + 어시스트
-
-                        console.log(cs_value)
-                        var championName = detail.info.participants[myAccountIndex].championName;
-                        var runes = detail.info.participants[myAccountIndex].perks.styles[0].selections[0].perk;
-
-                        var champImageUrl = "https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/" + championName + ".png";
-
-                        var matchHistory = document.getElementsByClassName("matchHistory");
-
-                        player_red_team_html = "";
-                        player_blue_team_html = "";
-
-                        for (let i = 0; i < (detail.info.participants.length > 10 ? 8 : 5); i++) {
-                            player_red_team_html += `<div class="player_red_team">` + detail.info.participants[i].riotIdGameName + `</div>`;
-                        }
-                        for (let i = (detail.info.participants.length > 10 ? 8 : 5);
-                            i < (detail.info.participants.length > 10 ? 16 : 10); i++) {
-                            player_blue_team_html += `<div class="player_blue_team">` + detail.info.participants[i].riotIdGameName + `</div>`;
-                        }
-
-                        matchHistory[i].innerHTML += `
-                    <div class="champ_container">
-                        <div class="info_box">
-                            <div class="match_info"></div>
+                            <div class="my_profile">
+                                <img src="${champImageUrl}" class="profile_image" alt="">
+                                
+                                <div class="kda"> ${k}/${d}/${a}</div>
+                            </div>
                         </div>
-
-                        <div class="my_profile">
-                            <img src="${champImageUrl}" class="profile_image" alt="">
-                            <img src="${runesImageUrl}" class="runes_image" alt="">
-                            <div class="kda"> ${k}/${d}/${a}</div>
+                        <div class="champ_container2">
+                            <div class="kill_per">킬관여 ${kill_per_value}%</div>
+                            <div class="cs">CS ${cs_value} &#40;${avg_cs_value}&#41;</div>
                         </div>
-                    </div>
-                    <div class="champ_container2">
-                        <div class="kill_per">킬관여 ${kill_per_value}%</div>
-                        <div class="cs">CS ${cs_value} &#40;${avg_cs_value}&#41;</div>
-                    </div>
-                    <div class="player_list">
-                        <div class="red_team_box">`+ player_red_team_html +
-                            // <div class="player_red_team">${blank[0].name}</div>
-                            // <div class="player_red_team">${blank[1].name}</div>
-                            // <div class="player_red_team">${blank[2].name}</div>
-                            // <div class="player_red_team">${blank[3].name}</div>
-                            // <div class="player_red_team">${blank[4].name}</div>
-                            `</div>
+                        <div class="player_list">
+                            <div class="red_team_box">`+ player_red_team_html +
+                                // <div class="player_red_team">${blank[0].name}</div>
+                                // <div class="player_red_team">${blank[1].name}</div>
+                                // <div class="player_red_team">${blank[2].name}</div>
+                                // <div class="player_red_team">${blank[3].name}</div>
+                                // <div class="player_red_team">${blank[4].name}</div>
+                                `</div>
 
-                        <div class="blue_team_box">`+ player_blue_team_html +
-                            // <div class="player_blue_team">${blank[5].name}</div>
-                            // <div class="player_blue_team">${blank[6].name}</div>
-                            // <div class="player_blue_team">${blank[7].name}</div>
-                            // <div class="player_blue_team">${blank[8].name}</div>
-                            // <div class="player_blue_team">${blank[9].name}</div>
-                            `</div>
+                            <div class="blue_team_box">`+ player_blue_team_html +
+                                // <div class="player_blue_team">${blank[5].name}</div>
+                                // <div class="player_blue_team">${blank[6].name}</div>
+                                // <div class="player_blue_team">${blank[7].name}</div>
+                                // <div class="player_blue_team">${blank[8].name}</div>
+                                // <div class="player_blue_team">${blank[9].name}</div>
+                                `</div>
 
-                    </div>`;
+                        </div>`;
 
-                        matchHistory = document.getElementsByClassName("matchHistory")
-                        if (detail.info.participants[myAccountIndex].win == false) {
-                            matchHistory[i].style.borderLeft = "7px solid red";
-                        } else {
-                            matchHistory[i].style.borderLeft = "7px solid blue";
+                            matchHistory = document.getElementsByClassName("matchHistory")
+                            if (detail.info.participants[myAccountIndex].win == false) {
+                                matchHistory[i].style.borderLeft = "7px solid red";
+                            } else {
+                                matchHistory[i].style.borderLeft = "7px solid blue";
 
+                            }
+                            /*
+                            if (detail.info.teams[0].bans == null) {
+                                match_info[i].innerHTML = "빠른 대전"
+                            } else if (detail.info.teams[0].bans != null) {
+                                match_info[i].innerHTML = "솔랭"
+                            } else {
+                                match_info[i].innerHTML = "ARAM"
+
+                            }
+                            */
+                        },
+                        error: function (request, status, error) {
+
+                            console.log(error);
                         }
+                    });
+                }
+            });
 
-                        if (detail.info.teams[0].bans == null) {
-                            match_info = document.getElementsByClassName("match_info")
-                            match_info[i].innerHTML = "빠른 대전"
-                        } else if (detail.info.teams[0].bans != null) {
-                            match_info = document.getElementsByClassName("match_info")
-                            match_info[i].innerHTML = "솔랭"
-                        } else {
-                            match_info = document.getElementsByClassName("match_info")
-                            match_info[i].innerHTML = "ARAM"
+        }
 
-                        }
-
-                    },
-                    error: function (request, status, error) {
-
-                        console.log(error);
-                    }
-                });
+        function getRuneImgUrl(){
+            console.log("getRuneImgs")
+            for(let i=0;i<10;i++){
+                runesdatasUrl = "https://ddragon.leagueoflegends.com/cdn/14.9.1/data/en_US/runesReforged.json";
+                var filteredData;
+                var runesImageUrl = "";
+                fetch(runesdatasUrl)
+                    .then(response => response.json()) // 응답을 JSON으로 변환
+                    .then(data => {
+                        filteredData = data.filter(item => item.key === `${runes}`);
+                        runesImageUrl = "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/"+runes[i]+"_"+filteredData+".png"
+                        console.log(data);
+                        //var a = document.getElementsByClassName('my_profile');
+                        //a.innerHTML += `<img src="${runesImageUrl}" class="runes_image" alt="">`
+                    })
+                    .catch(error => {
+                        // 에러 처리
+                        console.error('Error fetching JSON data:', error);
+                    });   
+                console.log(runesImageUrl)
             }
-
         }
-
+        
         window.onload = function () {
-            getMatchDetails()
-            log_in();
-        }
+        getMatchDetails()
+            .then(() => {
+                getRuneImgUrl();
+            })
+            .catch(error => {
+                console.error('Error in getMatchDetails:', error);
+            });
+        log_in();
+    }
+
 
 
 
