@@ -13,7 +13,7 @@
         var matchList = localStorage.getItem('matchListResponse')
         matchList = matchList.split(',')
         var detail = '';
-        var runes = [1,2,3,4,5,6,5,5,5,5];
+        var runes = [1, 2, 3, 4, 5, 6, 5, 5, 5, 5];
         function getMatchDetails(data) {
             return new Promise((resolve, reject) => {
                 summoner = localStorage.getItem("myName") //소환사명
@@ -26,16 +26,17 @@
                 myAccountIndex = 0; //게임내 내 아이디 번호
                 var kda = "default" //kda조회를 위한 변수선언
                 var profile = document.getElementById("top_text")
+                var mode = "모드"
                 profile.innerHTML = summoner + '\n' + tierResponse.tier + ` ${tierResponse.rank}` + "<br>" + `${tierResponse.leaguPoints} LP` + "<br>" + `${tierResponse.wins}승` + `${tierResponse.losses}패`
                 match_info = document.getElementsByClassName("match_info");
                 for (let i = 0; i < 10; i++) {
                     $.ajax({
-                        url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchList[i] + "?api_key=RGAPI-26deab30-db3b-455a-93d7-2417846b690c",
+                        url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchList[i] + "?api_key=RGAPI-2a36d88d-06fd-4e7e-ae1c-1276398116eb",
                         method: 'get',
                         success: function (detail) {
-                            console.log(detail)
-                           
-                            
+                            //console.log(detail)
+
+
                             let blank = [
                                 {
                                     "name": detail.info.participants[0].riotIdGameName
@@ -72,8 +73,8 @@
 
 
 
-                            console.log(detail)
-                            console.log("tierResponse", tierResponse)
+                            //console.log(detail)
+                            //console.log("tierResponse", tierResponse)
 
                             //내 인덱스 번호 찾기
                             for (let i = 0; i < (detail.info.participants.length > 10 ? 16 : 10); i++) {
@@ -90,7 +91,7 @@
                             d = detail.info.participants[myAccountIndex].deaths
                             a = detail.info.participants[myAccountIndex].assists
                             test = `${k}/${d}/${a}`;
-                            console.log(test);
+                            //console.log(test);
 
                             /*
                             console.log(`
@@ -105,8 +106,17 @@
                             */
 
                             //내가 플레이한 챔피언 찾아서 사진 불러오기
-
-
+                            console.log(detail.info.gameMode);
+                            if (detail.info.teams[0].bans.length == 0) {
+                                if(detail.info.gameMode == "ARAM"){
+                                    mode = "칼바람";
+                                }
+                                else{
+                                    mode = "빠른대전";
+                                }
+                            } else if (detail.info.teams[0].bans.length != 0) {
+                                mode = "솔랭";
+                            }
                             kill_per = document.getElementsByClassName("kill_per") //킬관여 계산을 위한...
                             cs = document.getElementsByClassName("cs")
                             player_red_team = document.getElementsByClassName("player_red_team")
@@ -134,17 +144,24 @@
 
                             kill_per_value = parseInt(((detail.info.participants[myAccountIndex].kills + detail.info.participants[myAccountIndex].assists) / team_kill_score) * 100)
                             cs_value = detail.info.participants[myAccountIndex].totalMinionsKilled + detail.info.participants[myAccountIndex].neutralMinionsKilled
-                            console.log(detail.info.gameDuration)
+                            //console.log(detail.info.gameDuration)
                             avg_cs_value = (cs_value / (detail.info.gameDuration / 60)).toFixed(1);
 
                             //팀 전체 킬 / 내 킬 + 어시스트
 
-                            console.log(cs_value)
+                            //console.log(cs_value)
                             var championName = detail.info.participants[myAccountIndex].championName;
-                            var runes = detail.info.participants[myAccountIndex].perks.styles[0].selections[0].perk;
+                            //console.log("getRuneImgs")
+
+                            for (let i = 0; i < 10; i++) {
+                                runeId = detail.info.participants[myAccountIndex].perks.styles[0].selections[0].perk
+                                //console.log(runeId)
+                                var runesImageUrl = "https://opgg-static.akamaized.net/meta/images/lol/14.10.1/perk/" + runeId + ".png?image=q_auto:good,f_webp,w_64,h_64&v=1715147216574";
+                                //console.log(runesImageUrl)
+                            }
 
                             var champImageUrl = "https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/" + championName + ".png";
-
+                            
                             var matchHistory = document.getElementsByClassName("matchHistory");
 
                             player_red_team_html = "";
@@ -161,34 +178,27 @@
                             matchHistory[i].innerHTML += `
                         <div class="champ_container">
                             <div class="info_box">
-                                <div class="match_info"></div>
+                                <div class="match_info">${mode}</div>
                             </div>
 
                             <div class="my_profile">
                                 <img src="${champImageUrl}" class="profile_image" alt="">
-                                
+                                <img src="${runesImageUrl}" class="rune_image" alt="">
                                 <div class="kda"> ${k}/${d}/${a}</div>
                             </div>
+
                         </div>
                         <div class="champ_container2">
                             <div class="kill_per">킬관여 ${kill_per_value}%</div>
                             <div class="cs">CS ${cs_value} &#40;${avg_cs_value}&#41;</div>
                         </div>
                         <div class="player_list">
-                            <div class="red_team_box">`+ player_red_team_html +
-                                // <div class="player_red_team">${blank[0].name}</div>
-                                // <div class="player_red_team">${blank[1].name}</div>
-                                // <div class="player_red_team">${blank[2].name}</div>
-                                // <div class="player_red_team">${blank[3].name}</div>
-                                // <div class="player_red_team">${blank[4].name}</div>
+                            <div class="red_team_box" style=" background-color: rgb(147, 147, 251);">`+ player_red_team_html +
+
                                 `</div>
 
-                            <div class="blue_team_box">`+ player_blue_team_html +
-                                // <div class="player_blue_team">${blank[5].name}</div>
-                                // <div class="player_blue_team">${blank[6].name}</div>
-                                // <div class="player_blue_team">${blank[7].name}</div>
-                                // <div class="player_blue_team">${blank[8].name}</div>
-                                // <div class="player_blue_team">${blank[9].name}</div>
+                            <div class="blue_team_box" style="background-color: rgb(255, 124, 146)">`+ player_blue_team_html +
+
                                 `</div>
 
                         </div>`;
@@ -200,16 +210,7 @@
                                 matchHistory[i].style.borderLeft = "7px solid blue";
 
                             }
-                            /*
-                            if (detail.info.teams[0].bans == null) {
-                                match_info[i].innerHTML = "빠른 대전"
-                            } else if (detail.info.teams[0].bans != null) {
-                                match_info[i].innerHTML = "솔랭"
-                            } else {
-                                match_info[i].innerHTML = "ARAM"
-
-                            }
-                            */
+                            
                         },
                         error: function (request, status, error) {
 
@@ -221,39 +222,13 @@
 
         }
 
-        function getRuneImgUrl(){
-            console.log("getRuneImgs")
-            for(let i=0;i<10;i++){
-                runesdatasUrl = "https://ddragon.leagueoflegends.com/cdn/14.9.1/data/en_US/runesReforged.json";
-                var filteredData;
-                var runesImageUrl = "";
-                fetch(runesdatasUrl)
-                    .then(response => response.json()) // 응답을 JSON으로 변환
-                    .then(data => {
-                        filteredData = data.filter(item => item.key === `${runes}`);
-                        runesImageUrl = "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/"+runes[i]+"_"+filteredData+".png"
-                        console.log(data);
-                        //var a = document.getElementsByClassName('my_profile');
-                        //a.innerHTML += `<img src="${runesImageUrl}" class="runes_image" alt="">`
-                    })
-                    .catch(error => {
-                        // 에러 처리
-                        console.error('Error fetching JSON data:', error);
-                    });   
-                console.log(runesImageUrl)
-            }
-        }
-        
+
+
         window.onload = function () {
-        getMatchDetails()
-            .then(() => {
-                getRuneImgUrl();
-            })
-            .catch(error => {
-                console.error('Error in getMatchDetails:', error);
-            });
-        log_in();
-    }
+            getMatchDetails()
+
+            log_in();
+        }
 
 
 
@@ -282,6 +257,7 @@
 
         #matchHistoryContainer #right {
             flex: 2;
+   
         }
 
         #left {
@@ -323,6 +299,7 @@
             height: 300px;
             text-align: center;
             font-size: 30px;
+            background-color: rgb(235, 233, 233);
         }
 
         #top_text {
@@ -336,12 +313,29 @@
         .matchHistory {
             display: flex;
             justify-content: space-between;
-            border: 1px solid red;
+            border: 1px solid rgb(255, 0, 238);
             border-radius: 10px;
             margin: 5px;
             margin-bottom: 15px;
-            height: 18%;
             padding: 0px;
+            z-index: -1;
+            
+        }
+        .player_red_team {
+            color: gray;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .player_blue_team {
+
+            color: gray;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            z-index: -10;
         }
 
         .champ_container {
@@ -352,22 +346,16 @@
         }
 
         .champ_container2 {
-            margin-top: 6%;
+            margin-top: 5%;
             margin-right: 0;
             width: 17%;
-            height: 100%;
             float: right;
         }
 
-        .player_list {
-            width: 30%;
-            z-index: 100;
-            border-left: 1px solid gray;
-            border-radius: 7px;
-        }
+
 
         .champ_container2>div {
-            border: 1px solid rgb(255, 90, 90);
+            border: 2px solid rgb(109, 255, 90);
 
         }
 
@@ -382,47 +370,36 @@
 
         .my_profile {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            width: 300px;
+        }
+        .rune_image{
+            border: 1px solid rgb(0, 255, 60);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            margin-top: 1%;
         }
 
         .profile_image {
             display: block;
-            background-color: red;
             position: relative;
-            width: 65px;
+            width: 55px;
             /* 이미지의 너비 */
-            height: 65px;
+            height: 55px;
             /* 이미지의 높이 */
             border-radius: 50%;
             /* 원형으로 만들기 위해 50%로 설정 */
-            overflow: hidden;
             /* 넘치는 부분을 숨김 */
-            z-index: -1;
-            margin-top: -3%;
-            margin-left: 50%;
+            z-index: 0;
+            margin-top: 1%;
         }
 
-        .runes_image {
-            display: block;
-            background-color: red;
-            position: relative;
-            width: 40px;
-            /* 이미지의 너비 */
-            height: 40px;
-            /* 이미지의 높이 */
-            border-radius: 50%;
-            /* 원형으로 만들기 위해 50%로 설정 */
-            overflow: hidden;
-            /* 넘치는 부분을 숨김 */
-            z-index: -1;
-            margin-top: -2.5%;
-            margin-left: 60%;
-        }
-
+        
         .kda {
             font-family: fantasy;
-            margin-top: 10%;
-            margin-left: 10px;
+            margin-top: 5%;
+            margin-left: 10%;
             display: block;
             font-size: 130%;
             text-align: left;
@@ -432,30 +409,26 @@
         .player_list {
             display: flex;
             justify-content: space-around;
-            z-index: -1;
+            
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            width: 30%;
 
+            border-left: 1px solid gray;
+            border-radius: 7px;
         }
 
-        .player_blue_team {
-            background-color: rgb(74, 74, 246);
-            color: yellow;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
 
+
+        .player_blue_team::selection {
+            background-color: plum;
         }
-
-        .player_red_team {
-            background-color: rgb(253, 68, 68);
-            color: yellow;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-
+        .player_red_team::selection {
+            background-color: plum;
         }
+        
+
     </style>
 
 </head>
@@ -531,16 +504,16 @@
 
             <div id="left">left</div>
             <div id="right">
-                <div class="matchHistory"></div>
-                <div class="matchHistory"></div>
-                <div class="matchHistory"></div>
-                <div class="matchHistory"></div>
-                <div class="matchHistory"></div>
-                <div class="matchHistory"></div>
-                <div class="matchHistory"></div>
-                <div class="matchHistory"></div>
-                <div class="matchHistory"></div>
-                <div class="matchHistory"></div>
+                <div class="matchHistory" style="background-color: rgb(235, 233, 233);"></div>
+                <div class="matchHistory" style="background-color: rgb(235, 233, 233);"></div>
+                <div class="matchHistory" style="background-color: rgb(235, 233, 233);"></div>
+                <div class="matchHistory" style="background-color: rgb(235, 233, 233);"></div>
+                <div class="matchHistory" style="background-color: rgb(235, 233, 233);"></div>
+                <div class="matchHistory" style="background-color: rgb(235, 233, 233);"></div>
+                <div class="matchHistory" style="background-color: rgb(235, 233, 233);"></div>
+                <div class="matchHistory" style="background-color: rgb(235, 233, 233);"></div>
+                <div class="matchHistory" style="background-color: rgb(235, 233, 233);"></div>
+                <div class="matchHistory" style="background-color: rgb(235, 233, 233);"></div>
 
             </div>
         </div>
