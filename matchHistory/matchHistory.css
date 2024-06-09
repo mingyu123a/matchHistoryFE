@@ -13,6 +13,8 @@
     position: relative;
     width: 800px;
     margin: 0 auto; 
+    display: flex;
+    align-items: center;
 }
 
 input {
@@ -23,10 +25,7 @@ input {
     font-size: 25px;
 }
 
-.search {
-    display: flex;
-    align-items: center;
-  }
+
   
   #summoner {
     flex: 1;
@@ -35,6 +34,10 @@ input {
   }
   
   #search {
+
     cursor: pointer;
-    margin-left: -30px; /* Adjust the negative margin to match the padding of the input */
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    right: 0;
   }
