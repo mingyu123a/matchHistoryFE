@@ -9,6 +9,7 @@
   <link href="../ranking/ranking.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="../login.js"></script>
+  <script src="../env.js"></script>
 </head>
 
 <body>
@@ -182,6 +183,7 @@
   </div>
 </body>
 <script>
+  
   function a() {
     console.log('hi');
   }
@@ -189,7 +191,7 @@
   function getRankingList(page) {
     page = page * 10
     $.ajax({
-      url: "https://kr.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/CHALLENGER/I?page=1&api_key=RGAPI-c7353825-3b27-4d22-8a98-2590efb78276",
+      url: "https://kr.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/CHALLENGER/I?page=1&api_key=" + window.env.API_KEY,
       method: 'get',
       success: function (result) {
         gameNameTagLine = []
@@ -215,7 +217,7 @@
         console.log(summonerId)
         console.log("ajax");
         $.ajax({
-          url: "http://54.180.82.156/history/ranking",
+          url: "http://54.180.82.156:8080/history/ranking",
           method: 'post',
           contentType: 'application/json',
           data:
@@ -244,8 +246,6 @@
     getRankingList(0);
     log_in();
   }
-
-
 
 
 </script>

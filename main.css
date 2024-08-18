@@ -1,7 +1,7 @@
 body {
     font-family: '맑은 고딕', sans-serif; 
     line-height: 1.6;
-    color: #333; 
+    color: #c6c6c6; 
 }
 
 .top {
@@ -40,16 +40,6 @@ body {
 
 }
 
-.pink {
-    border-top: 2px solid rgb(212, 147, 255);
-    background-image: linear-gradient(to bottom right, #E1BEE7, #B2EBF2);
-    height: 220px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-
-
-}
 
 .kakao {
     margin-top: 8%;
@@ -76,7 +66,7 @@ button, input {
 }
 
 html {
-    background-image: linear-gradient(to bottom right, #E1BEE7, #B2EBF2);
+    background-color: #1a1a1a;
     height: 150%;
   }
 
@@ -138,7 +128,7 @@ html {
   }
 
   .menu {
-    width: 2000px;
+    width: 2500px;
     height: 150px;
   }
 

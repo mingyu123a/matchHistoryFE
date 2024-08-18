@@ -3,10 +3,15 @@
     display: flex;
 }
 .myContainer {
+
     border: 1px solid gray;
     background-color: white;
     margin-left: 30%;
     margin-top: 10%;
-    width: 20%;
-    height: 200px;
+    width: 30%;
+    height: 300px;
+}
+#wrapped_box {
+    display: flex;
+    justify-content: space-around;
 }

@@ -2,169 +2,290 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link href="../main.css" rel="stylesheet">
-  <link href="../findDuo/findDuo2.css" rel="stylesheet">
-  <script src="../login.js"></script>
-  <style>
-    #name {
-      font-weight: bold;
-      font-size: large;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="../main.css" rel="stylesheet">
+    <link href="../signUp/signUp.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../login.js"></script>
+    <script>
+        function mypageRequest() {
+            var tokenDataString = sessionStorage.getItem('accessToken');
+            console.log(tokenData)
 
-    }
+            var tokenData = JSON.parse(tokenDataString);
+            console.log(accessToken)
+            // accessToken 값을 추출
+            var accessToken = tokenData.accessToken;
 
-    #winPerBox>* {
-      display: inline;
+            // AJAX 요청 보내기
+            $.ajax({
+                url: "http://localhost:8080/mypage/mypage",
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken // 추출한 accessToken을 사용
+                },
+                success: function(result) {
+                    console.log(result);
+                    localStorage.setItem("matchListResponse", result);
+                    myPage_info = document.getElementsByClassName("myPage_info")
+                    wrapped_box = document.getElementsByClassName("wrapped_box")
 
-    }
+                    myPage_info[0].innerHTML = `<strong>Riot ID:</strong> ${result.riotId}`
+                    myPage_info[1].innerHTML = `<strong>email:</strong> ${result.email}`
+                    myPage_info[2].innerHTML = `<strong>tier:</strong> ${result.tier}`
+                    myPage_info[3].innerHTML = `<strong>rank:</strong> ${result.rank}`
+                    myPage_info[4].innerHTML = `<strong>leaguePoints:</strong> ${result.leaguePoints}P`
+                    myPage_info[5].innerHTML = `<strong>wins:</strong> ${result.wins} 승`
+                    myPage_info[6].innerHTML = `<strong>losses:</strong> ${result.losses} 패`
+                    var champ_mastery_image1 = "https://lolcdn.darkintaqt.com/cdn/champion/" + result.championId[0] + "/tile"
+                    var champ_mastery_image2 = "https://lolcdn.darkintaqt.com/cdn/champion/" + result.championId[1] + "/tile"
+                    var champ_mastery_image3 = "https://lolcdn.darkintaqt.com/cdn/champion/" + result.championId[2] + "/tile"
+                    //임시
+                   /* myPage_info[7].innerHTML = `<strong>losses:</strong> ${result.riotId}`
+                    myPage_info[8].innerHTML = `<strong>losses:</strong> ${result.email}`
+                    myPage_info[9].innerHTML = `<strong>losses:</strong> ${result.tier}`
+                    myPage_info[10].innerHTML = `<strong>losses:</strong> ${result.rank}`
+                    myPage_info[11].innerHTML = `<strong>losses:</strong> ${result.leaguePoints}`
+                    myPage_info[12].innerHTML = `<strong>losses:</strong> ${result.wins} 승`
+                    myPage_info[13].innerHTML = `<strong>losses:</strong> ${result.losses} 패`
+                    */
 
-    #winPerBox>*:nth-child(1) {
-      color: rgb(141, 141, 141);
-      font-weight: bold;
-    }
+                    
+                    wrapped_box[0].innerHTML = `
+                <div class="champ-stats">
+                    <img src="${champ_mastery_image1}" alt="" width="46px">
+                    <div class="num">${Number(result.championPoints[0]).toLocaleString()}</div>
+                </div>
+                <div class="champ-stats">
+                    <img src="${champ_mastery_image2}" alt="" width="46px">
+                    <div class="num">${Number(result.championPoints[1]).toLocaleString()}</div>
+                </div>
+                <div class="champ-stats">
+                    <img src="${champ_mastery_image3}" alt="" width="46px">
+                    <div class="num">${Number(result.championPoints[2]).toLocaleString()}</div>
+                </div>`
+                },
+                error: function(request, status, error) {
+                    alert("error");
+                    console.log(error);
+                }
+            });
+        } // 로컬 스토리지에서 토큰 데이터를 가져오기
+        window.onlaoad = mypageRequest();
+    </script>
+    <style>
+        .profile-box {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+            max-width: 400px;
+            max-height: 540px;
+            margin: 50px auto;
+        }
 
-    #winPerBox>*:nth-child(2) {
-      color: black;
-      font-weight: bold;
-    }
+        .profile-box p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #555;
+        }
 
-    #mostChampTitle {
-      font-weight: 700;
-    }
+        .profile-box strong {
+            color: #000;
+        }
 
-    .myContainer>* {
-      padding: 10px;
-    }
+        .group {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+        }
 
+        .wrapped_box {
+            display: flex;
+            justify-content: space-around;
+        }
 
+        img {
+            border: 3px solid black;
+        }
 
-    /* 듀오찾기 버튼 스타일 */
-    /* 듀오찾기 버튼 호버 효과 */
-    .duo-button {
-      margin-left: 41%;
-      width: 10%;
-      height: 50px;
-      background-color: #B2EBF2;
-      border: 3px solid rgb(92, 92, 240);
-      color: #8E24AA;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s, color 0.3s, transform 0.2s;
-    }
+        .champ-stats>div {
+            color: gray;
+            font-size: 15px;
+            font-weight: bold;
+        }
 
-    .duo-button:hover {
-      background-color: #81D4FA;
-      color: #4A148C;
-      transform: rotate(-1deg);
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
-  </style>
+        #mostChampTitle {
+            font-size: 17px;
+            font-weight: 700;
+            color: #000;
+            text-align: center;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .middle {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .simple_info {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
-  <!-- 로그인 했을때만 기능사용가능하게 -->
-  <div class="top">
 
-    <div class="menu">
-      <div class="container container-one" onclick="location.href='../index/index.html'">
-        <button>
-          Main
-          <div class="fill-one"></div>
-        </button>
-      </div>
+    <div class="top">
 
-      <div class="container container-one" onclick="location.href='../matchHistory/matchHistory.html'">
-        <button>
-          전적검색
-          <div class="fill-one"></div>
-        </button>
-      </div>
+        <div class="menu">
+            <div class="container container-one" onclick="location.href='../index/index.html'">
+                <button>
+                    Main
+                    <div class="fill-one"></div>
+                </button>
+            </div>
 
-      <div class="container container-one" onclick="location.href='../findDuo/findDuo.html'">
-        <button>
-          듀오찾기
-          <div class="fill-one"></div>
-        </button>
-      </div>
+            <div class="container container-one" onclick="location.href='../matchHistory/matchHistory.html'">
+                <button>
+                    전적검색
+                    <div class="fill-one"></div>
+                </button>
+            </div>
 
-      <div class="container container-one" onclick="location.href='../community/community.html'">
-        <button>
-          커뮤니티
-          <div class="fill-one"></div>
-        </button>
-      </div>
+            <div class="container container-one" onclick="location.href='../findDuo/findDuo.html'">
+                <button>
+                    듀오찾기
+                    <div class="fill-one"></div>
+                </button>
+            </div>
 
-      <div class="container container-one" onclick="location.href='../ranking/ranking.html'">
-        <button>
-          랭킹
-          <div class="fill-one"></div>
-        </button>
-      </div>
-      <span class="top_right">
-        <div class="container container-one" onclick="location.href='../request/request.html'">
-          <button>
-            요청목록
-            <div class="fill-one"></div>
-          </button>
+            <div class="container container-one" onclick="location.href='../community/community.html'">
+                <button>
+                    커뮤니티
+                    <div class="fill-one"></div>
+                </button>
+            </div>
+
+            <div class="container container-one" onclick="location.href='../ranking/ranking.html'">
+                <button>
+                    랭킹
+                    <div class="fill-one"></div>
+                </button>
+            </div>
+            <span class="top_right">
+                <div class="container container-one" onclick="location.href='../request/request.html'">
+                    <button>
+                        요청목록
+                        <div class="fill-one"></div>
+                    </button>
+                </div>
+
+                <div class="container container-one" onclick="location.href='../login/login.html'">
+                    <button class="log_in_out_btn" onclick="log_out()">
+                        로그인
+                        <div class="fill-one"></div>
+                    </button>
+                </div>
+
+                <div class="container container-one" onclick="location.href='../signUp/signUp.html'">
+                    <button>
+                        회원가입
+                        <div class="fill-one"></div>
+                    </button>
+                </div>
+
+                <div class="container container-one" onclick="location.href='../myPage/myPage.html'">
+                    <button>
+                        마이페이지
+                        <div class="fill-one"></div>
+                    </button>
+                </div>
+            </span>
         </div>
-
-        <div class="container container-one" onclick="location.href='../login/login.html'">
-          <button class="log_in_out_btn" onclick="log_out()">
-            로그인
-            <div class="fill-one"></div>
-          </button>
-        </div>
-
-        <div class="container container-one" onclick="location.href='../signUp/signUp.html'">
-          <button>
-            회원가입
-            <div class="fill-one"></div>
-          </button>
-        </div>
-      </span>
     </div>
-  </div>
-  <div class="middle">
-    <div class="box2">
-      <div class="myContainer">
-        <div id="name">시간의 숲#KR9</div>
-        <div id="winPerBox">
-          <div>10승 10패</div>
-          <div>승률 50%</div>
-        </div>
-        <div>
-          <div id="mostChampTitle">모스트 챔피언</div>
-          <img src="https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/Talon.png" alt="" width="40px">
-          <img src="https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/Volibear.png" alt="" width="40px">
-          <img src="https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/Sylas.png" alt="" width="40px">
+    <div class="middle">
+        <div class="profile-box">
+            <div class="group">
+                <p class="simple_info">내 정보</p>
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
+            </div>
 
+            <div class="group">
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
+            </div>
+            <div class="group">
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
+            </div>
+            <div id="mostChampTitle">모스트 챔피언</div>
+
+            <div class="wrapped_box">
+                <div class="champ-stats">
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/${result.championId[0]}/tile" alt="" width="46px">
+                    <div class="num"></div>
+                </div>
+                <div class="champ-stats">
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/${result.championId[1]}/tile" alt="" width="46px">
+                    <div class="num"></div>
+                </div>
+                <div class="champ-stats">
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/${result.championId[2]}/tile" alt="" width="46px">
+                    <div class="num"></div>
+                </div>
+
+            </div>
         </div>
 
-      </div>
-      <div class="duoContainer">찾은 듀오의 모스트 챔피언과
-        티어,
-        승률
-      </div>
+        <div class="profile-box">
+            <div class="group">
+                <p class="simple_info">내가 찾은 상대 정보</p>
+                <p class="myPage_info"><strong>Riot ID:</strong> test2#KR1</p>
+                <p class="myPage_info"><strong>email:</strong> test2@gmail.com</p>
+            </div>
+
+            <div class="group">
+                <p class="myPage_info"><strong>tier:</strong> BRONZE</p>
+                <p class="myPage_info"><strong>rank:</strong> II</p>
+                <p class="myPage_info"><strong>leaguePoints:</strong> 55P</p>
+            </div>
+            <div class="group">
+                <p class="myPage_info"><strong>wins:</strong> 7승</p>
+                <p class="myPage_info"><strong>losses:</strong> 5패</p>
+            </div>
+            <div id="mostChampTitle">모스트 챔피언</div>
+
+            <div class="wrapped_box">
+                <div class="champ-stats">
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/51/tile" alt="" width="46px">
+                    <div class="num">302,333</div>
+                </div>
+                <div class="champ-stats">
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/55/tile" alt="" width="46px">
+                    <div class="num">44,278</div>
+                </div>
+                <div class="champ-stats">
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/23/tile" alt="" width="46px">
+                    <div class="num">34,275</div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
-    <div class="duo-button">듀오 요청하기</div>
-    <!-- 상대방에게는 요청 목록에 요청이 쌓인다
-/수락하면 요청한 사람이 알 수 있게 알림
- -->
-  </div>
-  <div class="bottom">
-    <div class="pink">
-      <div></div>
+
+    <div class="bottom">
+        <div class="pink">
+            <div></div>
+        </div>
     </div>
-  </div>
 </body>
-<script>
-  window.onload = function () {
-    log_in();
-
-  }
-</script>
 
 </html>
