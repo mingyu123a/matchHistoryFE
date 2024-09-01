@@ -18,5 +18,5 @@ app.get('/login', (req, res) => {
 // riot.txt 파일 제공
 app.get('/riot.txt', (req, res) => {
   const filePath = path.join(__dirname, 'riot.txt');
-  res.sendFile(filePath);
+  res.sendFile('../riot.txt');
 });
