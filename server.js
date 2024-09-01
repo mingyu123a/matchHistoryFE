@@ -15,8 +15,17 @@ app.get('/login', (req, res) => {
   res.render('./login/login', { title: 'Login'});
 });
 
-// riot.txt 파일 제공
+
+
 app.get('/riot.txt', (req, res) => {
-  const filePath = path.join(__dirname, 'riot.txt');
-  res.sendFile('../riot.txt');
+  const filePath = path.join(__dirname, 'public', 'riot.txt');
+
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      res.status(500).send('Error reading file');
+      return;
+    }
+    res.type('text/plain');
+    res.send(data);
+  });
 });
