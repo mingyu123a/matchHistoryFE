@@ -21,6 +21,20 @@
          <input type="text" id="riotTag" placeholder="{라이엇id}#{태그}" required>
          <input type="password" id="pw1" placeholder="비밀번호" value='' required>
          <input type="password" id="pw2" placeholder="비밀번호 확인" value='' required>
+         <label for="tier">티어:</label>
+         <select id="tier" name="tier">
+            <option value="iron">아이언</option>
+            <option value="bronze">브론즈</option>
+            <option value="silver">실버</option>
+            <option value="gold">골드</option>
+            <option value="platinum">플레티넘</option>
+            <option value="emerald">에메랄드</option>
+            <option value="diamond">다이아</option>
+            <option value="master">마스터</option>
+            <option value="grandmaster">그랜드마스터</option>
+            <option value="challenger">챌린저</option>
+         </select>
+
          <button id="signUp" type="button" onclick="finish('${aaa}');">완료</button>
          `;
     }
@@ -31,6 +45,7 @@
       var pw2 = document.getElementById('pw2').value;
       var nickname1 = document.getElementById('nickname1').value;
       var riotTag = document.getElementById('riotTag').value;
+      var tier = document.getElementById('tier').value
       if (pw1 != pw2) {
         alert("비밀번호가 일치하지 않습니다")
         return;
@@ -47,6 +62,7 @@
             "pw1": pw1,
             "nickname1": nickname1,
             "riotTag": riotTag,
+            "tier1" : tier
           }),
         success: function (result) {
           if (result == "email중복") {
@@ -56,7 +72,7 @@
           }
           if (result == "성공") {
             alert(result);
-            location.href = "../index/index.html"
+            location.href = "../index.html"
           }
           else {
             alert(result)
@@ -74,6 +90,12 @@
 
     }
   </script>
+  <style>
+    label {
+      color: black;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>

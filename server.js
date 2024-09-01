@@ -10,3 +10,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+app.get('/login', (req, res) => {
+  res.render('./login/login', { title: 'Login'});
+});
+
+// riot.txt 파일 제공
+app.get('/riot.txt', (req, res) => {
+  const filePath = path.join(__dirname, 'riot.txt');
+  res.sendFile(filePath);
+});

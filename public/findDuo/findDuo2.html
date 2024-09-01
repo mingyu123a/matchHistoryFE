@@ -21,7 +21,7 @@
 
             // AJAX 요청 보내기
             $.ajax({
-                url: "http://localhost:8080/mypage/mypage",
+                url: "http://localhost:8080/find/findduo",
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + accessToken // 추출한 accessToken을 사용
@@ -32,13 +32,13 @@
                     myPage_info = document.getElementsByClassName("myPage_info")
                     wrapped_box = document.getElementsByClassName("wrapped_box")
 
-                    myPage_info[0].innerHTML = `<strong>Riot ID:</strong> ${result.riotId}`
-                    myPage_info[1].innerHTML = `<strong>email:</strong> ${result.email}`
-                    myPage_info[2].innerHTML = `<strong>tier:</strong> ${result.tier}`
-                    myPage_info[3].innerHTML = `<strong>rank:</strong> ${result.rank}`
-                    myPage_info[4].innerHTML = `<strong>leaguePoints:</strong> ${result.leaguePoints}P`
-                    myPage_info[5].innerHTML = `<strong>wins:</strong> ${result.wins} 승`
-                    myPage_info[6].innerHTML = `<strong>losses:</strong> ${result.losses} 패`
+                    myPage_info[7].innerHTML = `<strong>Riot ID:</strong> ${result.riotId}`
+                    myPage_info[8].innerHTML = `<strong>email:</strong> ${result.email}`
+                    myPage_info[9].innerHTML = `<strong>tier:</strong> ${result.tier}`
+                    myPage_info[10].innerHTML = `<strong>rank:</strong> ${result.rank}`
+                    myPage_info[11].innerHTML = `<strong>leaguePoints:</strong> ${result.leaguePoints}P`
+                    myPage_info[12].innerHTML = `<strong>wins:</strong> ${result.wins} 승`
+                    myPage_info[13].innerHTML = `<strong>losses:</strong> ${result.losses} 패`
                     var champ_mastery_image1 = "https://lolcdn.darkintaqt.com/cdn/champion/" + result.championId[0] + "/tile"
                     var champ_mastery_image2 = "https://lolcdn.darkintaqt.com/cdn/champion/" + result.championId[1] + "/tile"
                     var champ_mastery_image3 = "https://lolcdn.darkintaqt.com/cdn/champion/" + result.championId[2] + "/tile"
@@ -53,7 +53,7 @@
                     */
 
                     
-                    wrapped_box[0].innerHTML = `
+                    wrapped_box[1].innerHTML = `
                 <div class="champ-stats">
                     <img src="${champ_mastery_image1}" alt="" width="46px">
                     <div class="num">${Number(result.championPoints[0]).toLocaleString()}</div>
@@ -73,7 +73,7 @@
                 }
             });
         } // 로컬 스토리지에서 토큰 데이터를 가져오기
-        window.onlaoad = mypageRequest();
+        window.onload = mypageRequest();
     </script>
     <style>
         .profile-box {
@@ -246,34 +246,34 @@
 
         <div class="profile-box">
             <div class="group">
-                <p class="simple_info">내가 찾은 상대 정보</p>
-                <p class="myPage_info"><strong>Riot ID:</strong> test2#KR1</p>
-                <p class="myPage_info"><strong>email:</strong> test2@gmail.com</p>
+                <p class="simple_info">찾은 상대 정보</p>
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
             </div>
 
             <div class="group">
-                <p class="myPage_info"><strong>tier:</strong> BRONZE</p>
-                <p class="myPage_info"><strong>rank:</strong> II</p>
-                <p class="myPage_info"><strong>leaguePoints:</strong> 55P</p>
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
             </div>
             <div class="group">
-                <p class="myPage_info"><strong>wins:</strong> 7승</p>
-                <p class="myPage_info"><strong>losses:</strong> 5패</p>
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
             </div>
             <div id="mostChampTitle">모스트 챔피언</div>
 
             <div class="wrapped_box">
                 <div class="champ-stats">
-                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/51/tile" alt="" width="46px">
-                    <div class="num">302,333</div>
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/${result.championId[0]}/tile" alt="" width="46px">
+                    <div class="num"></div>
                 </div>
                 <div class="champ-stats">
-                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/55/tile" alt="" width="46px">
-                    <div class="num">44,278</div>
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/${result.championId[1]}/tile" alt="" width="46px">
+                    <div class="num"></div>
                 </div>
                 <div class="champ-stats">
-                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/23/tile" alt="" width="46px">
-                    <div class="num">34,275</div>
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/${result.championId[2]}/tile" alt="" width="46px">
+                    <div class="num"></div>
                 </div>
 
             </div>
