@@ -1,0 +1,11 @@
+{
+  "name": "matchhistoryfe",
+  "version": "1.0.0",
+  "description": "none",
+  "main": "login.js",
+  "scripts": {
+    "build-env": "echo \"window.env = { API_KEY: 'RGAPI-90c83270-e0ab-4cf8-a837-afecb3102ceb' };\" > ./public/env-config.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
