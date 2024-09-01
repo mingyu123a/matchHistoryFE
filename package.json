@@ -1,11 +1,15 @@
 {
   "name": "matchhistoryfe",
   "version": "1.0.0",
-  "description": "none",
-  "main": "login.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "build-env": "echo \"window.env = { API_KEY: 'RGAPI-90c83270-e0ab-4cf8-a837-afecb3102ceb' };\" > ./public/env-config.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
