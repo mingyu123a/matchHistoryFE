@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../login.js"></script>
     <script src="../env.js"></script>
+    <script src="../riotAPI"></script>
     <script>
         var matchList = localStorage.getItem('matchListResponse')
         matchList = matchList.split(',')
@@ -33,7 +34,7 @@
                 match_info = document.getElementsByClassName("match_info");
                 for (let i = 0; i < 10; i++) {
                     $.ajax({
-                        url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchList[i] + "?api_key=" + window.env.API_KEY,
+                        url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchList[i] + "?api_key=" + window.env.riotApiKey,
                         method: 'get',
                         success: function (detail) {
                             //console.log(detail)
@@ -227,14 +228,14 @@
 
 
         window.onload = function () {
+            getRiotApiKey()
             getMatchDetails()
-
             log_in();
         }
 
         function checkMatchInfo(id) {
             $.ajax({
-                url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchList[id] + "?api_key=" + window.env.API_KEY,
+                url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchList[id] + "?api_key=" + riotApiKey,
                 method: 'get',
                 success: function (detail) {
                     var id = id;

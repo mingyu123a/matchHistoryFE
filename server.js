@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/riot-api-key', (req, res) => {
   const riotApiKey = process.env.RIOT_API_KEY;
-
+  
   console.log('Riot API Key:', riotApiKey); // API 키 확인을 위한 로그
 
   res.send(`
