@@ -1,6 +1,6 @@
 function getRiotApiKey() {
     $.ajax({
-        url: "localhost:8080/api/config", // API URL
+        url: "http://localhost:8080/api/config", // API URL
         method: 'GET', // 요청 방식
         success: function(response) {
             riotApiKey = JSON.stringify(response)
