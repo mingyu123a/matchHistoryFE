@@ -1,4 +1,14 @@
-
+function checkLogin(){
+  var accessToken = sessionStorage.getItem("accessToken")
+  if (accessToken == null) {
+    window.location.href="./login/login.html";
+  }
+  else{
+    sessionStorage.clear();
+    alert('로그아웃 되었습니다.');
+    window.location.href="./login/login.html";
+  }
+}
 function log_in() {
   log_in_out_btn = document.getElementsByClassName("log_in_out_btn")
   var accessToken = sessionStorage.getItem("accessToken")
@@ -7,7 +17,6 @@ function log_in() {
     log_in_out_btn[0].style.backgroundColor = "white";
     log_in_out_btn[0].style.color = "lightskyblue";
   }
-
 }
 function log_out() {
   const existingContainer = document.querySelector('.container.container-one');
