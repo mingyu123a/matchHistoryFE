@@ -163,7 +163,7 @@
                                 } else if (first_spell_id == 6){
                                     spell_image_src1 = "https://ibb.co/K6jBgy8"
                                 } else if (first_spell_id == 7){
-                                    spell_image_src1 = "https://ibb.co/8gJX2Xr"
+                                    spell_image_src1 = `<a href="https://imgbb.com/"><img src="https://i.ibb.co/0ykQZQC/Summoner-Heal.webp" alt="Summoner-Heal" border="0" /></a>`
                                 } else if (first_spell_id == 11){
                                     spell_image_src1 = "https://ibb.co/VCjwZ3V"
                                 } else if (first_spell_id == 12){
@@ -204,8 +204,8 @@
                                 <img src="${champImageUrl}" class="profile_image" alt="">
                                 <img src="${runesImageUrl}" class="rune_image" alt="">
                                   <div class="spell_image_box">
-                                     <img src="${spell_image_src1}" class="spell_image" border="0" />
-                                     <img src="${spell_image_src1}" class="spell_image" border="0" />
+                                    ${spell_image_src1}
+                                    ${spell_image_src1}
                                   </div>
                                 
                                 <div class="kda"> ${k}/${d}/${a}</div>
