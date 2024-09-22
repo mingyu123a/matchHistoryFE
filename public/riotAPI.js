@@ -1,6 +1,6 @@
 function getRiotApiKey() {
     $.ajax({
-        url: "https://findd.findduo.site/api/config", // API URL
+        url: "http://findd.findduo.site:8080/api/config", // API URL
         method: 'GET', // 요청 방식
         success: function(response) {
             riotApiKey = JSON.stringify(response)
