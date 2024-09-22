@@ -15,6 +15,7 @@
         matchList = matchList.split(',')
         var detail = '';
         var runes = [1, 2, 3, 4, 5, 6, 5, 5, 5, 5];
+        var key = "";
         function getMatchDetails(data) {
             return new Promise((resolve, reject) => {
                 summoner = localStorage.getItem("myName") //소환사명
@@ -228,11 +229,8 @@
 
         window.onload = async function () {
             try {
-                // Wait for the API key to be retrieved before proceeding
-                const key = await getRiotApiKey();
+                key = await getRiotApiKey();
                 console.log("API Key Retrieved:", key);
-
-                // Now call the subsequent functions
                 getMatchDetails();
                 log_in();
             } catch (error) {
