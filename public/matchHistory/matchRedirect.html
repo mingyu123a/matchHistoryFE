@@ -150,8 +150,10 @@
 
                             }
                             for (let i = 0; i < 10; i++) {
-                                first_spell_id = detail.info.participants[i].summoner1Id
-                                second_spell_id = detail.info.participants[i].summoner2Id
+                                first_spell_id = detail.info.participants[myAccountIndex].summoner1Id
+
+                                console.log(typeof(first_spell_id))
+                                second_spell_id = detail.info.participants[myAccountIndex].summoner2Id
                                 if(first_spell_id = 1){
                                     spell_image_src1 = "https://ibb.co/68K36NQ"
                                 } else if(first_spell_id = 3){
@@ -203,7 +205,7 @@
                                 <img src="${runesImageUrl}" class="rune_image" alt="">
                                   <div class="spell_image_box">
                                      <img src="${spell_image_src1}" class="spell_image" alt="Summoner-Flash" border="0" />
-                                     <img src="${spell_image_src2}" class="spell_image" alt="Summoner-Flash" border="0" />
+                                     <img src="${spell_image_src1}" class="spell_image" alt="Summoner-Flash" border="0" />
                                   </div>
                                 
                                 <div class="kda"> ${k}/${d}/${a}</div>
