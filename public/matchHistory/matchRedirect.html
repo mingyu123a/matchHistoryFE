@@ -33,7 +33,7 @@
                 match_info = document.getElementsByClassName("match_info");
                 for (let i = 0; i < 10; i++) {
                     $.ajax({
-                        url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchList[i] + "?api_key=" + riotApiKey,
+                        url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchList[i] + "?api_key=" +  getRiotApiKey(),
                         method: 'get',
                         success: function (detail) {
                             //console.log(detail)
