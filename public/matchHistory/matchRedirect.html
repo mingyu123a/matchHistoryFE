@@ -17,7 +17,6 @@
         var runes = [1, 2, 3, 4, 5, 6, 5, 5, 5, 5];
         function getMatchDetails(data) {
             return new Promise((resolve, reject) => {
-                var key = getRiotApiKey();
                 summoner = localStorage.getItem("myName") //소환사명
                 console.log(summoner, "SUMMONER")
                 myNickName = summoner.split('#') //내 닉네임
@@ -25,7 +24,7 @@
                 localStorage.clear(); //로컬스토리지 제거~
                 tierResponse = JSON.parse(tierResponse) //티어 결과 json화
 
-
+                
                 myAccountIndex = 0; //게임내 내 아이디 번호
                 var kda = "default" //kda조회를 위한 변수선언
                 var profile = document.getElementById("top_text")
@@ -227,12 +226,20 @@
 
 
 
-        window.onload = function () {
-            key = getRiotApiKey();
-            console.log(key);
-            getMatchDetails();
-            log_in();
-        }
+        window.onload = async function () {
+            try {
+                // Wait for the API key to be retrieved before proceeding
+                const key = await getRiotApiKey();
+                console.log("API Key Retrieved:", key);
+
+                // Now call the subsequent functions
+                getMatchDetails();
+                log_in();
+            } catch (error) {
+                console.log("Error retrieving API key:", error);
+            }
+        };
+
 
         function checkMatchInfo(id) {
             $.ajax({
