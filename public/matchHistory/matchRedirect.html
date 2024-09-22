@@ -15,8 +15,8 @@
         matchList = matchList.split(',')
         var detail = '';
         var runes = [1, 2, 3, 4, 5, 6, 5, 5, 5, 5];
+        var key = "";
         function getMatchDetails(data) {
-            var key = "";
             return new Promise((resolve, reject) => {
                 summoner = localStorage.getItem("myName") //소환사명
                 console.log(summoner, "SUMMONER")
