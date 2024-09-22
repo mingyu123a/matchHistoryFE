@@ -10,13 +10,31 @@ function log_in() {
 
 }
 function log_out() {
-  console.log('logOut')
-  if (document.getElementsByClassName("log_in_out").innerHTML == "로그아웃") {
-    console.log("로그아웃 -> 로그인")
-    sessionStorage.clear()
-    log_in_out_btn[0].innerHTML = "로그인"
-  } else {
-      
+  const existingContainer = document.querySelector('.container.container-one');
+
+  // 새로운 div 요소 생성
+  const newContainer = document.createElement('div');
+  newContainer.className = 'container container-one';
+  newContainer.onclick = log_out; // onclick 이벤트 설정
+  
+  // 버튼 요소 생성
+  const button = document.createElement('button');
+  button.className = 'log_in_out_btn';
+  button.textContent = '로그아웃';
+  
+  // fill-one div 생성
+  const fillDiv = document.createElement('div');
+  fillDiv.className = 'fill-one';
+  
+  // 버튼에 fill-one div 추가
+  button.appendChild(fillDiv);
+  
+  // 새로운 div에 버튼 추가
+  newContainer.appendChild(button);
+  
+  // 기존의 div를 새로운 div로 교체
+  if (existingContainer) {
+      existingContainer.replaceWith(newContainer);
   }
 }
 
