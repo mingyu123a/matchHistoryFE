@@ -25,7 +25,7 @@
                 localStorage.clear(); //로컬스토리지 제거~
                 tierResponse = JSON.parse(tierResponse) //티어 결과 json화
 
-                
+
                 myAccountIndex = 0; //게임내 내 아이디 번호
                 var kda = "default" //kda조회를 위한 변수선언
                 var profile = document.getElementById("top_text")
@@ -151,47 +151,47 @@
                             }
                             for (let i = 0; i < 10; i++) {
                                 first_spell_id = detail.info.participants[myAccountIndex].summoner1Id
- if(first_spell_id == 1){
+                                if (first_spell_id == 1) {
                                     spell_image_src1 = `<img src="https://i.ibb.co/0K0gPQ5/Summoner-Boost.webp" class="spell_image" alt="Summoner-Boost" border="0">`
-                                } else if(first_spell_id == 3){
+                                } else if (first_spell_id == 3) {
                                     spell_image_src1 = `<img src="https://i.ibb.co/HGj6Rnn/Summoner-Exhaust.webp" class="spell_image" alt="Summoner-Exhaust" border="0">`
-                                } else if(first_spell_id == 4){
+                                } else if (first_spell_id == 4) {
                                     spell_image_src1 = `<img src="https://i.ibb.co/Mn80N8y/Summoner-Flash.webp" class="spell_image" alt="Summoner-Flash" border="0">`
-                                } else if (first_spell_id == 6){
+                                } else if (first_spell_id == 6) {
                                     spell_image_src1 = `<img src="https://i.ibb.co/WnW7XKR/Summoner-Haste.webp" class="spell_image" alt="Summoner-Haste" border="0">`
-                                } else if (first_spell_id == 7){
+                                } else if (first_spell_id == 7) {
                                     spell_image_src1 = `<img src="https://i.ibb.co/0ykQZQC/Summoner-Heal.webp" class="spell_image" alt="Summoner-Heal" border="0"/>`
-                                } else if (first_spell_id == 11){
+                                } else if (first_spell_id == 11) {
                                     spell_image_src1 = `<img src="https://i.ibb.co/bvWbZ71/Summoner-Smite.webp" class="spell_image" alt="Summoner-Smite" border="0">`
-                                } else if (first_spell_id == 12){
+                                } else if (first_spell_id == 12) {
                                     spell_image_src1 = `<img src="https://i.ibb.co/xJdjHm1/Summoner-Teleport.webp" class="spell_image" alt="Summoner-Teleport" border="0">`
-                                } else if (first_spell_id == 14){
+                                } else if (first_spell_id == 14) {
                                     spell_image_src1 = `<img src="https://i.ibb.co/mXFZMHd/Summoner-Dot.webp" class="spell_image" alt="Summoner-Dot" border="0">`
-                                } else if (first_spell_id == 21){
+                                } else if (first_spell_id == 21) {
                                     spell_image_src1 = `<img src="https://i.ibb.co/pKRjWhc/Summoner-Barrier.webp" class="spell_image" alt="Summoner-Barrier" border="0">`
-                                } else if (first_spell_id == 32){
+                                } else if (first_spell_id == 32) {
                                     spell_image_src1 = `<img src="https://i.ibb.co/bbxQ43v/Summoner-Snowball.webp" class="spell_image" alt="Summoner-Snowball" border="0">`
                                 }
                                 second_spell_id = detail.info.participants[myAccountIndex].summoner2Id
-                                if(second_spell_id == 1){
+                                if (second_spell_id == 1) {
                                     spell_image_src2 = `<img src="https://i.ibb.co/0K0gPQ5/Summoner-Boost.webp" class="spell_image" alt="Summoner-Boost" border="0">`
-                                } else if(second_spell_id == 3){
+                                } else if (second_spell_id == 3) {
                                     spell_image_src2 = `<img src="https://i.ibb.co/HGj6Rnn/Summoner-Exhaust.webp" class="spell_image" alt="Summoner-Exhaust" border="0">`
-                                } else if(second_spell_id == 4){
+                                } else if (second_spell_id == 4) {
                                     spell_image_src2 = `<img src="https://i.ibb.co/Mn80N8y/Summoner-Flash.webp" class="spell_image" alt="Summoner-Flash" border="0">`
-                                } else if (second_spell_id == 6){
+                                } else if (second_spell_id == 6) {
                                     spell_image_src2 = `<img src="https://i.ibb.co/WnW7XKR/Summoner-Haste.webp" class="spell_image" alt="Summoner-Haste" border="0">`
-                                } else if (second_spell_id == 7){
+                                } else if (second_spell_id == 7) {
                                     spell_image_src2 = `<img src="https://i.ibb.co/0ykQZQC/Summoner-Heal.webp" class="spell_image" alt="Summoner-Heal" border="0"/>`
-                                } else if (second_spell_id == 11){
+                                } else if (second_spell_id == 11) {
                                     spell_image_src2 = `<img src="https://i.ibb.co/bvWbZ71/Summoner-Smite.webp" class="spell_image" alt="Summoner-Smite" border="0">`
-                                } else if (second_spell_id == 12){
+                                } else if (second_spell_id == 12) {
                                     spell_image_src2 = `<img src="https://i.ibb.co/xJdjHm1/Summoner-Teleport.webp" class="spell_image" alt="Summoner-Teleport" border="0">`
-                                } else if (second_spell_id == 14){
+                                } else if (second_spell_id == 14) {
                                     spell_image_src2 = `<img src="https://i.ibb.co/mXFZMHd/Summoner-Dot.webp" class="spell_image" alt="Summoner-Dot" border="0">`
-                                } else if (second_spell_id == 21){
+                                } else if (second_spell_id == 21) {
                                     spell_image_src2 = `<img src="https://i.ibb.co/pKRjWhc/Summoner-Barrier.webp" class="spell_image" alt="Summoner-Barrier" border="0">`
-                                } else if (second_spell_id == 32){
+                                } else if (second_spell_id == 32) {
                                     spell_image_src2 = `<img src="https://i.ibb.co/bbxQ43v/Summoner-Snowball.webp" class="spell_image" alt="Summoner-Snowball" border="0">`
                                 }
                             }
@@ -468,6 +468,7 @@
             margin-left: 5%;
             width: 17%;
             float: right;
+            text-align: center;
         }
 
 
@@ -523,9 +524,9 @@
             font-family: fantasy;
             margin-left: 4%;
             display: block;
-            
+
             font-size: 115%;
-            text-align: left;
+
             color: rgba(255, 255, 255, 0.804);
         }
 
@@ -563,20 +564,23 @@
             width: 35px;
             height: 35px;
         }
-        .player_image{
+
+        .player_image {
             border: 1px solid rgb(249, 156, 171);
             border-radius: 55px;
             width: 40px;
             height: 40px;
         }
-        .spell_image{
+
+        .spell_image {
             display: inline;
             padding: 2px;
             border: 1px solid rgb(249, 156, 171);
-            width: 40px;
-            height: 40px;
+            width: 29px;
+            height: 29px;
         }
-        .spell_image_box{
+
+        .spell_image_box {
             width: 100px;
         }
     </style>
