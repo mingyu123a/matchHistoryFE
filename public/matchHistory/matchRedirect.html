@@ -241,7 +241,7 @@
 
         function checkMatchInfo(id) {
             $.ajax({
-                url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchList[id] + "?api_key=" + riotApiKey,
+                url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchList[id] + "?api_key=" + key,
                 method: 'get',
                 success: function (detail) {
                     var id = id;
