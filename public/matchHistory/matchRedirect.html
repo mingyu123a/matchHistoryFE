@@ -196,7 +196,8 @@
                                 }
                             }
 
-                            var champImageUrl = "https://ddragon.leagueoflegends.com/cdn/14.18.1/img/champion/" + championName + ".png";
+                            var champImageUrl = "https://ddragon.leagueoflegends.com/cdn/14.18.1/img/champion/" + championName.charAt(0).toUpperCase() + championName.slice(1).toLowerCase() + ".png";
+
 
                             var matchHistory = document.getElementsByClassName("matchHistory");
 
@@ -311,6 +312,7 @@
 
 
                         var championName = detail.info.participants[i].championName;
+                                                  https://ddragon.leagueoflegends.com/cdn/14.18.1/img/champion/Fiddlesticks.png
                         var player_champ_image = "https://ddragon.leagueoflegends.com/cdn/14.18.1/img/champion/" + championName + ".png";
 
 
