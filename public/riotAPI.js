@@ -4,8 +4,8 @@ function getRiotApiKey() {
         method: 'GET', // 요청 방식
         success: function(response) {
             riotApiKey = JSON.stringify(response)
-            console.log(riotApiKey)
             riotApiKey = riotApiKey.replace(/^"|"$/g, '');
+            console.log(riotApiKey);
             return riotApiKey;
         },
         error: function(error) {
