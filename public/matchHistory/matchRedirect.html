@@ -16,6 +16,7 @@
         var detail = '';
         var runes = [1, 2, 3, 4, 5, 6, 5, 5, 5, 5];
         function getMatchDetails(data) {
+            const key =  getRiotApiKey();
             return new Promise((resolve, reject) => {
                 summoner = localStorage.getItem("myName") //소환사명
                 console.log(summoner, "SUMMONER")
@@ -33,7 +34,7 @@
                 match_info = document.getElementsByClassName("match_info");
                 for (let i = 0; i < 10; i++) {
                     $.ajax({
-                        url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchList[i] + "?api_key=" +  getRiotApiKey(),
+                        url: "https://asia.api.riotgames.com/lol/match/v5/matches/" + matchList[i] + "?api_key=" + key,
                         method: 'get',
                         success: function (detail) {
                             //console.log(detail)
