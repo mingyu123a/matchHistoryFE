@@ -9,7 +9,6 @@
   <link href="../ranking/ranking.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="../login.js"></script>
-  <script src="../env.js"></script>
   <script src="../riotAPI.js"></script>
 
 </head>
@@ -219,7 +218,7 @@
         console.log(summonerId)
         console.log("ajax");
         $.ajax({
-          url: "http://findd.findduo.site:8080/history/ranking",
+          url: "http://findd.findduo.site/history/ranking",
           method: 'post',
           contentType: 'application/json',
           data:
