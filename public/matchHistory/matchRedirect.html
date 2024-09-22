@@ -152,7 +152,27 @@
                             for (let i = 0; i < 10; i++) {
                                 first_spell_id = detail.info.participants[i].summoner1Id
                                 second_spell_id = detail.info.participants[i].summoner2Id
-                                
+                                if(first_spell_id = 1){
+                                    spell_image_src1 = "https://ibb.co/68K36NQ"
+                                } else if(first_spell_id = 3){
+                                    spell_image_src1 = "https://ibb.co/KVJdBFF"
+                                } else if(first_spell_id = 4){
+                                    spell_image_src1 = "https://ibb.co/PxTHCTs"
+                                } else if (first_spell_id = 6){
+                                    spell_image_src1 = "https://ibb.co/K6jBgy8"
+                                } else if (first_spell_id = 7){
+                                    spell_image_src1 = "https://ibb.co/8gJX2Xr"
+                                } else if (first_spell_id = 11){
+                                    spell_image_src1 = "https://ibb.co/VCjwZ3V"
+                                } else if (first_spell_id = 12){
+                                    spell_image_src1 = "https://ibb.co/ChD72Jb"
+                                } else if (first_spell_id = 14){
+                                    spell_image_src1 = "https://ibb.co/rpc2bdY"
+                                } else if (first_spell_id = 21){
+                                    spell_image_src1 = "https://ibb.co/9V3KCqB"
+                                } else if (first_spell_id = 32){
+                                    spell_image_src1 = "https://ibb.co/Hh0Bc2P"
+                                }
                             }
 
                             var champImageUrl = "https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/" + championName + ".png";
@@ -172,7 +192,6 @@
                                 i < (detail.info.participants.length > 10 ? 16 : 10); i++) {
                                 player_blue_team_html += `<div class="player_blue_team">` + detail.info.participants[i].riotIdGameName + `</div>`;
                             }
-
                             matchHistory[i].innerHTML += `
                         <div class="champ_container">
                             <div class="info_box">
@@ -183,8 +202,8 @@
                                 <img src="${champImageUrl}" class="profile_image" alt="">
                                 <img src="${runesImageUrl}" class="rune_image" alt="">
                                   <div class="spell_image_box">
-                                     <a href="https://imgbb.com/"><img src="https://i.ibb.co/44Vy92m/Summoner-Flash.webp" class="spell_image" alt="Summoner-Flash" border="0" /></a>
-                                     <a href="https://imgbb.com/"><img src="https://i.ibb.co/44Vy92m/Summoner-Flash.webp" class="spell_image" alt="Summoner-Flash" border="0" /></a>
+                                     <img src="${spell_image_src1}" class="spell_image" alt="Summoner-Flash" border="0" />
+                                     <img src="${spell_image_src2}" class="spell_image" alt="Summoner-Flash" border="0" />
                                   </div>
                                 
                                 <div class="kda"> ${k}/${d}/${a}</div>
