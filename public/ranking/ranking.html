@@ -189,7 +189,7 @@
   </div>
 </body>
 <script>
-  
+  let riotApiKey;
   function a() {
     console.log('hi');
   }
@@ -250,7 +250,7 @@
   }
   window.onload = function () {
     log_in();
-    getRiotApiKey();
+    riotApiKey = getRiotApiKey();
     getRankingList(0);
   }
 
