@@ -87,7 +87,6 @@ html {
 
 
   .container {
-    border: 1px solid red;
     text-align: center;
     position: relative;
     width: 300px;
@@ -98,7 +97,6 @@ html {
   button {
     position: relative;
     height: 50px;
-    width: 150px;
     border: 1px solid rgb(207, 142, 152);
     background-color: #1a1a1a;
     border-radius: 5px;
