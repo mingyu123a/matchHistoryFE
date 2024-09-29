@@ -74,6 +74,42 @@
             });
         } // 로컬 스토리지에서 토큰 데이터를 가져오기
         window.onload = mypageRequest();
+
+        function displayMyInfo() {
+            var myInfoString = localStorage.getItem("myInfo");
+            if (myInfoString) {
+                var myInfo = JSON.parse(myInfoString);
+                var myPage_info = document.getElementsByClassName("myPage_info");
+                var wrapped_box = document.getElementsByClassName("wrapped_box");
+
+                myPage_info[0].innerHTML = `<strong>Riot ID:</strong> ${myInfo.riotId}`;
+                myPage_info[1].innerHTML = `<strong>Email:</strong> ${myInfo.email}`;
+                myPage_info[2].innerHTML = `<strong>Tier:</strong> ${myInfo.tier}`;
+                myPage_info[3].innerHTML = `<strong>Rank:</strong> ${myInfo.rank}`;
+                myPage_info[4].innerHTML = `<strong>League Points:</strong> ${myInfo.leaguePoints}P`;
+                myPage_info[5].innerHTML = `<strong>Wins:</strong> ${myInfo.wins} 승`;
+                myPage_info[6].innerHTML = `<strong>Losses:</strong> ${myInfo.losses} 패`;
+
+                var champ_mastery_image1 = "https://lolcdn.darkintaqt.com/cdn/champion/" + myInfo.championId[0] + "/tile";
+                var champ_mastery_image2 = "https://lolcdn.darkintaqt.com/cdn/champion/" + myInfo.championId[1] + "/tile";
+                var champ_mastery_image3 = "https://lolcdn.darkintaqt.com/cdn/champion/" + myInfo.championId[2] + "/tile";
+
+                wrapped_box[0].innerHTML = `
+                    <div class="champ-stats">
+                        <img src="${champ_mastery_image1}" alt="" width="46px">
+                        <div class="num">${Number(myInfo.championPoints[0]).toLocaleString()}</div>
+                    </div>
+                    <div class="champ-stats">
+                        <img src="${champ_mastery_image2}" alt="" width="46px">
+                        <div class="num">${Number(myInfo.championPoints[1]).toLocaleString()}</div>
+                    </div>
+                    <div class="champ-stats">
+                        <img src="${champ_mastery_image3}" alt="" width="46px">
+                        <div class="num">${Number(myInfo.championPoints[2]).toLocaleString()}</div>
+                    </div>`;
+            }
+        }
+        window.onload = displayMyInfo;
     </script>
     <style>
         .profile-box {

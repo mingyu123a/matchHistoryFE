@@ -71,6 +71,21 @@
             });
         }
 
+        function saveMyInfo() {
+            var myInfo = {
+                riotId: "exampleRiotId",
+                email: "example@example.com",
+                tier: "Gold",
+                rank: "IV",
+                leaguePoints: 100,
+                wins: 50,
+                losses: 30,
+                championId: [1, 2, 3],
+                championPoints: [1000, 2000, 3000]
+            };
+            localStorage.setItem("myInfo", JSON.stringify(myInfo));
+        }
+
         window.onload = function() {
             log_in();
             mypageRequest();
