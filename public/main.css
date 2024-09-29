@@ -87,6 +87,7 @@ html {
 
 
   .container {
+    border: 1px solid red;
     text-align: center;
     position: relative;
     width: 300px;
@@ -109,11 +110,6 @@ html {
   }
 
 
-  .container-one:hover {
-    -webkit-transform: translateX(100px);
-    -moz-transform: translateX(100px);
-    transform: translateX(100px);
-  }
 
   .menu {
     width: 2500px;
