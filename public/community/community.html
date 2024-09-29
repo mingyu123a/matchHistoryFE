@@ -88,6 +88,14 @@
             <div></div>
         </div>
     </div>
+    <div class="filter-container">
+        <button class="filter-button" onclick="toggleFilter()">필터</button>
+        <div id="filter-options" class="filter-options hidden">
+            <div class="filter-option" onclick="selectFilter(this)">공략</div>
+            <div class="filter-option" onclick="selectFilter(this)">잡담</div>
+            <div class="filter-option" onclick="selectFilter(this)">정보</div>
+        </div>
+    </div>
 </body>
 <style>
   #custom-filter-container {
@@ -134,6 +142,44 @@
     background-color: #e0e0e0;
     font-weight: bold;
   }
+
+  .filter-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .filter-options {
+    position: absolute;
+    right: 100%;
+    top: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+    width: 100px;
+  }
+
+  .filter-options.show {
+    max-height: 200px;
+    transition: max-height 0.3s ease-in;
+  }
+
+  .filter-option {
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .filter-option:hover {
+    background-color: #f0f0f0;
+  }
+
+  .filter-option.selected {
+    background-color: #e0e0e0;
+    font-weight: bold;
+  }
 </style>
 <script>
   window.onload = function () {
@@ -156,6 +202,26 @@
     }
     element.classList.add('selected');
     document.getElementById('custom-filter').textContent = '필터: ' + element.textContent;
+    toggleFilter();
+    // Here you can add logic to filter the content based on the selected option
+  }
+
+  function toggleFilter() {
+    var filterOptions = document.getElementById('filter-options');
+    if (filterOptions.classList.contains('show')) {
+      filterOptions.classList.remove('show');
+    } else {
+      filterOptions.classList.add('show');
+    }
+  }
+
+  function selectFilter(element) {
+    var options = document.getElementsByClassName('filter-option');
+    for (var i = 0; i < options.length; i++) {
+      options[i].classList.remove('selected');
+    }
+    element.classList.add('selected');
+    document.querySelector('.filter-button').textContent = '필터: ' + element.textContent;
     toggleFilter();
     // Here you can add logic to filter the content based on the selected option
   }
