@@ -107,6 +107,8 @@
                         <img src="${champ_mastery_image3}" alt="" width="46px">
                         <div class="num">${Number(myInfo.championPoints[2]).toLocaleString()}</div>
                     </div>`;
+            } else {
+                console.log("No information found in localStorage.");
             }
         }
         window.onload = displayMyInfo;
