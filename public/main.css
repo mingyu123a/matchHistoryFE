@@ -97,7 +97,7 @@ html {
   button {
     position: relative;
     height: 50px;
-    border: 1px solid rgb(207, 142, 152);
+    border: 3px solid rgb(207, 142, 152);
     background-color: #1a1a1a;
     border-radius: 5px;
     text-transform: uppercase;
