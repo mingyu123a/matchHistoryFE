@@ -19,7 +19,7 @@
 
 input {
     width: 100%;
-    border: 1px solid rgb(207, 142, 152);
+    border: 4px solid rgb(207, 142, 152);
     border-radius: 8px;
     padding: 10px 12px;
     font-size: 25px;
