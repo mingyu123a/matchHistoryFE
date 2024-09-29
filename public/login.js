@@ -1,33 +1,49 @@
-function checkLogin() {
-	checkLoginStatus();
+function checkLogin(){
+  var accessToken = sessionStorage.getItem("accessToken")
+  if (accessToken == null) {
+    window.location.href="../login/login.html";
+  }
+  else{
+    sessionStorage.clear();
+    alert('로그아웃 되었습니다.');
+    window.location.href="../login/login.html";
+  }
 }
-
-// 로그인 상태 확인 함수
-async function checkLoginStatus() {
-	const tokenData = JSON.parse(sessionStorage.getItem('accessToken'));
-	const logInOutBtn = document.querySelector('.log_in_out_btn');
-	
-	if (tokenData && tokenData.accessToken) {
-		logInOutBtn.textContent = '로그아웃';
-		logInOutBtn.classList.add('logged-in');
-	} else {
-		logInOutBtn.textContent = '로그인';
-		logInOutBtn.classList.remove('logged-in');
-	}
+function log_in() {
+  log_in_out_btn = document.getElementsByClassName("log_in_out_btn")
+  var accessToken = sessionStorage.getItem("accessToken")
+  if (accessToken != null) {
+    log_in_out_btn[0].innerHTML = "로그아웃"
+    log_in_out_btn[0].style.backgroundColor = "white";
+    log_in_out_btn[0].style.color = "lightskyblue";
+  }
 }
+function log_out() {
+  const existingContainer = document.querySelector('.container.container-one');
 
-// 로그인/로그아웃 처리 함수
-async function handleLoginLogout() {
-	const tokenData = JSON.parse(sessionStorage.getItem('accessToken'));
-	
-	if (tokenData && tokenData.accessToken) {
-		// 로그아웃 처리
-		sessionStorage.removeItem('accessToken');
-		alert('로그아웃되었습니다.');
-		window.location.href = '../index.html';
-	} else {
-		// 로그인 페이지로 이동
-		window.location.href = '../login/login.html';
-	}
+  // 새로운 div 요소 생성
+  const newContainer = document.createElement('div');
+  newContainer.className = 'container container-one';
+  newContainer.onclick = log_out; // onclick 이벤트 설정
+  
+  // 버튼 요소 생성
+  const button = document.createElement('button');
+  button.className = 'log_in_out_btn';
+  button.textContent = '로그아웃';
+  
+  // fill-one div 생성
+  const fillDiv = document.createElement('div');
+  fillDiv.className = 'fill-one';
+  
+  // 버튼에 fill-one div 추가
+  button.appendChild(fillDiv);
+  
+  // 새로운 div에 버튼 추가
+  newContainer.appendChild(button);
+  
+  // 기존의 div를 새로운 div로 교체
+  if (existingContainer) {
+      existingContainer.replaceWith(newContainer);
+  }
 }
 
