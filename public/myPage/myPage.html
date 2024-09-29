@@ -76,8 +76,11 @@
             wrappedBox.innerHTML = champHtml;
         }
 
-        // 페이지 로드 시 마이페이지 정보 요청
-        window.onload = mypageRequest;
+        // 페이지 로드 시 마이페이지 정보 요청 및 로그인 상태 확인
+        window.onload = function() {
+            mypageRequest();
+            checkLogin();
+        };
     </script>
     <style>
         h1 {
