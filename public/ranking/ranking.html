@@ -197,7 +197,10 @@
   function getRankingList(page) {
     page = page * 10
     $.ajax({
-      url: "https://kr.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/CHALLENGER/I?page=1&api_key=" + riotApiKey,
+      url: "https://kr.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/CHALLENGER/I?page=1",
+      headers: {
+        'X-Riot-Token': riotApiKey
+      },
       method: 'get',
       success: function (result) {
         gameNameTagLine = []
