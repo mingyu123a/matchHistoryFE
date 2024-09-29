@@ -251,10 +251,16 @@
       }
     });
   }
-  window.onload = function () {
-    log_in();
-    riotApiKey = getRiotApiKey();
-    getRankingList(0);
+  window.onload == async function () {
+            try {
+                riotApiKey = await getRiotApiKey();
+                console.log("API Key Retrieved:", riotApiKey);
+                getRankingList(0);
+                log_in();
+            } catch (error) {
+                console.log("Error retrieving API key:", error);
+                log_in();
+            }
   }
 
 
