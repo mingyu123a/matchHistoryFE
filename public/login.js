@@ -10,6 +10,7 @@ function checkLogin(){
     window.location.href="../login/login.html";
   }
 }
+
 function log_in() {
   log_in_out_btn = document.getElementsByClassName("log_in_out_btn")
   var accessToken = sessionStorage.getItem("accessToken")
@@ -19,6 +20,7 @@ function log_in() {
     log_in_out_btn[0].style.color = "lightskyblue";
   }
 }
+
 function log_out() {
   const existingContainer = document.querySelector('.container.container-one');
 
