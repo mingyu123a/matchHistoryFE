@@ -72,150 +72,32 @@
         </div>
       </div>
     <div class="middle">
-
-        <div id="custom-filter-container">
-            <div id="custom-filter" onclick="toggleFilter()">필터</div>
-            <div id="custom-filter-options" class="hidden">
-                <div class="custom-filter-option" onclick="selectFilter(this)">공략</div>
-                <div class="custom-filter-option" onclick="selectFilter(this)">잡담</div>
-                <div class="custom-filter-option" onclick="selectFilter(this)">정보</div>
-            </div>
+        <div id="filter">필터
+            <ul id="filterList" style="display: none;">
+                <li>정보</li>
+                <li>공략</li>
+                <li>잡담</li>
+            </ul>
         </div>
+        <div id="list">글목록</div>
+
     </div>
     <div class="bottom">
         <div class="pink">
             <div></div>
         </div>
     </div>
-
 </body>
-<style>
-  #custom-filter-container {
-    position: relative;
-    display: inline-block;
-  }
-
-  #custom-filter {
-    cursor: pointer;
-    padding: 10px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-  }
-
-  #custom-filter-options {
-    position: absolute;
-    right: 100%; /* Change from left: -100px to right: 100% */
-    top: 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.3s ease-out;
-    width: 100px; /* Add fixed width */
-  }
-
-  #custom-filter-options.show {
-    max-height: 200px;
-    transition: max-height 0.3s ease-in;
-  }
-
-  .custom-filter-option {
-    padding: 10px;
-    cursor: pointer;
-  }
-
-  .custom-filter-option:hover {
-    background-color: #f0f0f0;
-  }
-
-  .custom-filter-option.selected {
-    background-color: #e0e0e0;
-    font-weight: bold;
-  }
-
-  .filter-container {
-    position: relative;
-    display: inline-block;
-  }
-
-  .filter-options {
-    position: absolute;
-    right: 100%;
-    top: 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.3s ease-out;
-    width: 100px;
-  }
-
-  .filter-options.show {
-    max-height: 200px;
-    transition: max-height 0.3s ease-in;
-  }
-
-  .filter-option {
-    padding: 10px;
-    cursor: pointer;
-  }
-
-  .filter-option:hover {
-    background-color: #f0f0f0;
-  }
-
-  .filter-option.selected {
-    background-color: #e0e0e0;
-    font-weight: bold;
-  }
-</style>
 <script>
   window.onload = function () {
     log_in();
-  }
-
-  function toggleFilter() {
-    var filterOptions = document.getElementById('custom-filter-options');
-    if (filterOptions.classList.contains('show')) {
-      filterOptions.classList.remove('show');
-    } else {
-      filterOptions.classList.add('show');
-    }
-  }
-
-  function selectFilter(element) {
-    var options = document.getElementsByClassName('custom-filter-option');
-    for (var i = 0; i < options.length; i++) {
-      options[i].classList.remove('selected');
-    }
-    element.classList.add('selected');
-    document.getElementById('custom-filter').textContent = '필터: ' + element.textContent;
-    toggleFilter();
-    // Here you can add logic to filter the content based on the selected option
-  }
-
-  function toggleFilter() {
-    var filterOptions = document.getElementById('filter-options');
-    if (filterOptions.classList.contains('show')) {
-      filterOptions.classList.remove('show');
-    } else {
-      filterOptions.classList.add('show');
-    }
-  }
-
-  function selectFilter(element) {
-    var options = document.getElementsByClassName('filter-option');
-    for (var i = 0; i < options.length; i++) {
-      options[i].classList.remove('selected');
-    }
-    element.classList.add('selected');
-    document.querySelector('.filter-button').textContent = '필터: ' + element.textContent;
-    toggleFilter();
-    // Here you can add logic to filter the content based on the selected option
+    
+    const filterDiv = document.getElementById('filter');
+    const filterList = document.getElementById('filterList');
+    
+    filterDiv.addEventListener('click', function() {
+      filterList.style.display = filterList.style.display === 'none' ? 'block' : 'none';
+    });
   }
 </script>
 
