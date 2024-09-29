@@ -1,5 +1,6 @@
 function checkLogin(){
-  var accessToken = sessionStorage.getItem("accessToken")
+  var accessToken = sessionStorage.getItem("accessToken");
+  console.log(accessToken);
   if (accessToken == null) {
     window.location.href="../login/login.html";
   }
