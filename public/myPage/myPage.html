@@ -10,63 +10,74 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../login.js"></script>
     <script>
-        
-        function mypageRequest(){
-            var tokenDataString = sessionStorage.getItem('accessToken');
-            console.log(tokenData)
-
-            var tokenData = JSON.parse(tokenDataString);
-            console.log(accessToken)
-            // accessToken 값을 추출
-            var accessToken = tokenData.accessToken;
+        // 마이페이지 정보를 요청하고 표시하는 함수
+        function mypageRequest() {
+            // 세션 스토리지에서 토큰 데이터 가져오기
+            const tokenData = JSON.parse(sessionStorage.getItem('accessToken'));
+            const accessToken = tokenData.accessToken;
 
             // AJAX 요청 보내기
             $.ajax({
                 url: "https://findd.findduo.site/mypage/mypage",
                 method: 'GET',
                 headers: {
-                    'Authorization': 'Bearer ' + accessToken // 추출한 accessToken을 사용
+                    'Authorization': 'Bearer ' + accessToken
                 },
                 success: function (result) {
-                    console.log(result);
-                    localStorage.setItem("matchListResponse", result);
-                    myPage_info = document.getElementsByClassName("myPage_info")
-                    wrapped_box = document.getElementById("wrapped_box")
+                    // 응답 결과를 로컬 스토리지에 저장
+                    localStorage.setItem("matchListResponse", JSON.stringify(result));
 
-                    myPage_info[0].innerHTML = `<strong>Riot ID:</strong> ${result.riotId}`
-                    myPage_info[1].innerHTML =  `<strong>email:</strong> ${result.email}`
-                    myPage_info[2].innerHTML = `<strong>tier:</strong> ${result.tier}`
-                    myPage_info[3].innerHTML = `<strong>rank:</strong> ${result.rank}`
-                    myPage_info[4].innerHTML = `<strong>leaguePoints:</strong> ${result.leaguePoints}P`
-                    myPage_info[5].innerHTML = `<strong>wins:</strong> ${result.wins} 승`
-                    myPage_info[6].innerHTML = `<strong>losses:</strong> ${result.losses} 패`
+                    // 프로필 정보 업데이트
+                    updateProfileInfo(result);
 
-                    var champ_mastery_image1 = "https://lolcdn.darkintaqt.com/cdn/champion/"+result.championId[0]+"/tile"
-                    var champ_mastery_image2 = "https://lolcdn.darkintaqt.com/cdn/champion/"+result.championId[1]+"/tile"
-                    var champ_mastery_image3 = "https://lolcdn.darkintaqt.com/cdn/champion/"+result.championId[2]+"/tile"
-
-                    wrapped_box.innerHTML = `
-                <div class="champ-stats">
-                    <img src="${champ_mastery_image1}" alt="" width="46px">
-                    <div class="num">${Number(result.championPoints[0]).toLocaleString()}</div>
-                </div>
-                <div class="champ-stats">
-                    <img src="${champ_mastery_image2}" alt="" width="46px">
-                    <div class="num">${Number(result.championPoints[1]).toLocaleString()}</div>
-                </div>
-                <div class="champ-stats">
-                    <img src="${champ_mastery_image3}" alt="" width="46px">
-                    <div class="num">${Number(result.championPoints[2]).toLocaleString()}</div>
-                </div>`
+                    // 모스트 챔피언 정보 업데이트
+                    updateMostChampions(result);
                 },
                 error: function (request, status, error) {
-                    alert("error");
-                    console.log(error);
+                    console.error("마이페이지 정보 요청 실패:", error);
+                    alert("마이페이지 정보를 불러오는데 실패했습니다.");
                 }
             });
-            }// 로컬 스토리지에서 토큰 데이터를 가져오기
-        window.onlaoad=mypageRequest();
+        }
 
+        // 프로필 정보를 업데이트하는 함수
+        function updateProfileInfo(data) {
+            const infoFields = [
+                { key: 'riotId', label: 'Riot ID' },
+                { key: 'email', label: 'email' },
+                { key: 'tier', label: 'tier' },
+                { key: 'rank', label: 'rank' },
+                { key: 'leaguePoints', label: 'leaguePoints', suffix: 'P' },
+                { key: 'wins', label: 'wins', suffix: '승' },
+                { key: 'losses', label: 'losses', suffix: '패' }
+            ];
+
+            infoFields.forEach((field, index) => {
+                const element = document.getElementsByClassName("myPage_info")[index];
+                element.innerHTML = `<strong>${field.label}:</strong> ${data[field.key]}${field.suffix || ''}`;
+            });
+        }
+
+        // 모스트 챔피언 정보를 업데이트하는 함수
+        function updateMostChampions(data) {
+            const wrappedBox = document.getElementById("wrapped_box");
+            let champHtml = '';
+
+            for (let i = 0; i < 3; i++) {
+                const imageUrl = `https://lolcdn.darkintaqt.com/cdn/champion/${data.championId[i]}/tile`;
+                const points = Number(data.championPoints[i]).toLocaleString();
+                champHtml += `
+                    <div class="champ-stats">
+                        <img src="${imageUrl}" alt="Champion ${i+1}" width="46px">
+                        <div class="num">${points}</div>
+                    </div>`;
+            }
+
+            wrappedBox.innerHTML = champHtml;
+        }
+
+        // 페이지 로드 시 마이페이지 정보 요청
+        window.onload = mypageRequest;
     </script>
     <style>
         h1 {
