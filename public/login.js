@@ -6,7 +6,7 @@ function checkLogin(){
   else{
     sessionStorage.clear();
     alert('로그아웃 되었습니다.');
-    window.location.href="./login/login.html";
+    window.location.href="../login/login.html";
   }
 }
 function log_in() {
