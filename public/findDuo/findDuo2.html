@@ -4,57 +4,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Duo 2</title>
+    <title>Document</title>
+    <link href="../main.css" rel="stylesheet">
+    <link href="../signUp/signUp.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../login.js"></script>
     <script>
-        function displayMyInfo() {
-            var myInfoString = localStorage.getItem("myInfo");
-            if (myInfoString) {
-                var myInfo = JSON.parse(myInfoString);
-                var myPage_info = document.getElementsByClassName("myPage_info");
-                var wrapped_box = document.getElementsByClassName("wrapped_box");
+        function mypageRequest() {
+            var tokenDataString = sessionStorage.getItem('accessToken');
+            console.log(tokenData)
 
-                myPage_info[0].innerHTML = `<strong>Riot ID:</strong> ${myInfo.riotId}`;
-                myPage_info[1].innerHTML = `<strong>Email:</strong> ${myInfo.email}`;
-                myPage_info[2].innerHTML = `<strong>Tier:</strong> ${myInfo.tier}`;
-                myPage_info[3].innerHTML = `<strong>Rank:</strong> ${myInfo.rank}`;
-                myPage_info[4].innerHTML = `<strong>League Points:</strong> ${myInfo.leaguePoints}P`;
-                myPage_info[5].innerHTML = `<strong>Wins:</strong> ${myInfo.wins} 승`;
-                myPage_info[6].innerHTML = `<strong>Losses:</strong> ${myInfo.losses} 패`;
+            var tokenData = JSON.parse(tokenDataString);
+            console.log(accessToken)
+            // accessToken 값을 추출
+            var accessToken = tokenData.accessToken;
 
-                var champ_mastery_image1 = "https://lolcdn.darkintaqt.com/cdn/champion/" + myInfo.championId[0] + "/tile";
-                var champ_mastery_image2 = "https://lolcdn.darkintaqt.com/cdn/champion/" + myInfo.championId[1] + "/tile";
-                var champ_mastery_image3 = "https://lolcdn.darkintaqt.com/cdn/champion/" + myInfo.championId[2] + "/tile";
+            // AJAX 요청 보내기
+            $.ajax({
+                url: "https://findd.findduo.site/find/findduo",
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken // 추출한 accessToken을 사용
+                },
+                success: function(result) {
+                    console.log(result);
+                    localStorage.setItem("matchListResponse", result);
+                    myPage_info = document.getElementsByClassName("myPage_info")
+                    wrapped_box = document.getElementsByClassName("wrapped_box")
 
-                wrapped_box[0].innerHTML = `
-                    <div class="champ-stats">
-                        <img src="${champ_mastery_image1}" alt="" width="46px">
-                        <div class="num">${Number(myInfo.championPoints[0]).toLocaleString()}</div>
-                    </div>
-                    <div class="champ-stats">
-                        <img src="${champ_mastery_image2}" alt="" width="46px">
-                        <div class="num">${Number(myInfo.championPoints[1]).toLocaleString()}</div>
-                    </div>
-                    <div class="champ-stats">
-                        <img src="${champ_mastery_image3}" alt="" width="46px">
-                        <div class="num">${Number(myInfo.championPoints[2]).toLocaleString()}</div>
-                    </div>`;
-            } else {
-                console.log("No information found in localStorage.");
-            }
-        }
-        window.onload = displayMyInfo;
+                    myPage_info[7].innerHTML = `<strong>Riot ID:</strong> ${result.riotId}`
+                    myPage_info[8].innerHTML = `<strong>email:</strong> ${result.email}`
+                    myPage_info[9].innerHTML = `<strong>tier:</strong> ${result.tier}`
+                    myPage_info[10].innerHTML = `<strong>rank:</strong> ${result.rank}`
+                    myPage_info[11].innerHTML = `<strong>leaguePoints:</strong> ${result.leaguePoints}P`
+                    myPage_info[12].innerHTML = `<strong>wins:</strong> ${result.wins} 승`
+                    myPage_info[13].innerHTML = `<strong>losses:</strong> ${result.losses} 패`
+                    var champ_mastery_image1 = "https://lolcdn.darkintaqt.com/cdn/champion/" + result.championId[0] + "/tile"
+                    var champ_mastery_image2 = "https://lolcdn.darkintaqt.com/cdn/champion/" + result.championId[1] + "/tile"
+                    var champ_mastery_image3 = "https://lolcdn.darkintaqt.com/cdn/champion/" + result.championId[2] + "/tile"
+                    //임시
+                   /* myPage_info[7].innerHTML = `<strong>losses:</strong> ${result.riotId}`
+                    myPage_info[8].innerHTML = `<strong>losses:</strong> ${result.email}`
+                    myPage_info[9].innerHTML = `<strong>losses:</strong> ${result.tier}`
+                    myPage_info[10].innerHTML = `<strong>losses:</strong> ${result.rank}`
+                    myPage_info[11].innerHTML = `<strong>losses:</strong> ${result.leaguePoints}`
+                    myPage_info[12].innerHTML = `<strong>losses:</strong> ${result.wins} 승`
+                    myPage_info[13].innerHTML = `<strong>losses:</strong> ${result.losses} 패`
+                    */
+
+                    
+                    wrapped_box[1].innerHTML = `
+                <div class="champ-stats">
+                    <img src="${champ_mastery_image1}" alt="" width="46px">
+                    <div class="num">${Number(result.championPoints[0]).toLocaleString()}</div>
+                </div>
+                <div class="champ-stats">
+                    <img src="${champ_mastery_image2}" alt="" width="46px">
+                    <div class="num">${Number(result.championPoints[1]).toLocaleString()}</div>
+                </div>
+                <div class="champ-stats">
+                    <img src="${champ_mastery_image3}" alt="" width="46px">
+                    <div class="num">${Number(result.championPoints[2]).toLocaleString()}</div>
+                </div>`
+                },
+                error: function(request, status, error) {
+                    alert("error");
+                    console.log(error);
+                }
+            });
+        } // 로컬 스토리지에서 토큰 데이터를 가져오기
+        window.onload = mypageRequest();
     </script>
+    <style>
+        .profile-box {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+            max-width: 400px;
+            max-height: 540px;
+            margin: 50px auto;
+        }
+
+        .profile-box p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .profile-box strong {
+            color: #000;
+        }
+
+        .group {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+
+        .wrapped_box {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        img {
+            border: 3px solid black;
+        }
+
+        .champ-stats>div {
+            color: gray;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        #mostChampTitle {
+            font-size: 17px;
+            font-weight: 700;
+            color: #000;
+            text-align: center;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .middle {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .simple_info {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="myPage_info"></div>
-    <div class="myPage_info"></div>
-    <div class="myPage_info"></div>
-    <div class="myPage_info"></div>
-    <div class="myPage_info"></div>
-    <div class="myPage_info"></div>
-    <div class="myPage_info"></div>
-    <div class="wrapped_box"></div>
+
+    <div class="top">
+
+        <div class="menu">
+            <div class="container container-one" onclick="location.href='../index.html'">
+                <button>
+                    Main
+                </button>
+            </div>
+
+            <div class="container container-one" onclick="location.href='../matchHistory/matchHistory.html'">
+                <button>
+                    전적검색
+                </button>
+            </div>
+
+            <div class="container container-one" onclick="location.href='../findDuo/findDuo.html'">
+                <button>
+                    듀오찾기
+                </button>
+            </div>
+
+            <div class="container container-one" onclick="location.href='../community/community.html'">
+                <button>
+                    커뮤니티
+                </button>
+            </div>
+
+            <div class="container container-one" onclick="location.href='../ranking/ranking.html'">
+                <button>
+                    랭킹
+                </button>
+            </div>
+            <span class="top_right">
+                <div class="container container-one" onclick="location.href='../request/request.html'">
+                    <button>
+                        요청목록
+
+                    </button>
+                </div>
+
+                <div class="container container-one" onclick="checkLogin()">
+                    <button class="log_in_out_btn">
+                      로그인
+
+                    </button>
+                  </div>
+
+                <div class="container container-one" onclick="location.href='../signUp/signUp.html'">
+                    <button>
+                        회원가입
+
+                    </button>
+                </div>
+
+                <div class="container container-one" onclick="location.href='../myPage/myPage.html'">
+                    <button>
+                        마이페이지
+
+                    </button>
+                </div>
+            </span>
+        </div>
+    </div>
+    <div class="middle">
+        <div class="profile-box">
+            <div class="group">
+                <p class="simple_info">내 정보</p>
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
+            </div>
+
+            <div class="group">
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
+            </div>
+            <div class="group">
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
+            </div>
+            <div id="mostChampTitle">모스트 챔피언</div>
+
+            <div class="wrapped_box">
+                <div class="champ-stats">
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/${result.championId[0]}/tile" alt="" width="46px">
+                    <div class="num"></div>
+                </div>
+                <div class="champ-stats">
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/${result.championId[1]}/tile" alt="" width="46px">
+                    <div class="num"></div>
+                </div>
+                <div class="champ-stats">
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/${result.championId[2]}/tile" alt="" width="46px">
+                    <div class="num"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="profile-box">
+            <div class="group">
+                <p class="simple_info">찾은 상대 정보</p>
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
+            </div>
+
+            <div class="group">
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
+            </div>
+            <div class="group">
+                <p class="myPage_info"></p>
+                <p class="myPage_info"></p>
+            </div>
+            <div id="mostChampTitle">모스트 챔피언</div>
+
+            <div class="wrapped_box">
+                <div class="champ-stats">
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/${result.championId[0]}/tile" alt="" width="46px">
+                    <div class="num"></div>
+                </div>
+                <div class="champ-stats">
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/${result.championId[1]}/tile" alt="" width="46px">
+                    <div class="num"></div>
+                </div>
+                <div class="champ-stats">
+                    <img src="https://lolcdn.darkintaqt.com/cdn/champion/${result.championId[2]}/tile" alt="" width="46px">
+                    <div class="num"></div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom">
+        <div class="pink">
+            <div></div>
+        </div>
+    </div>
 </body>
 
 </html>
