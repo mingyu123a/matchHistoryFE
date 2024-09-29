@@ -86,9 +86,37 @@
             const matchElement = createElement('div', 'matchHistory');
             matchElement.onclick = () => checkMatchInfo(index);
 
-            // ... (매치 정보 UI 생성 로직)
+            const myParticipant = detail.info.participants.find(p => p.summonerName === myNickName);
+            if (!myParticipant) return matchElement; // 플레이어를 찾지 못한 경우 빈 요소 반환
+
+            const { championName, kills, deaths, assists, win } = myParticipant;
+            const gameResult = win ? '승리' : '패배';
+            const kda = `${kills}/${deaths}/${assists}`;
+
+            const championImageUrl = `${CHAMPION_IMAGE_URL}${championName}.png`;
+
+            matchElement.innerHTML = `
+                <div class="champ_container">
+                    <img src="${championImageUrl}" alt="${championName}" class="profile_image">
+                    <span class="kda">${kda}</span>
+                </div>
+                <div class="match_info">
+                    ${gameResult}<br>
+                    ${detail.info.gameMode}
+                </div>
+                <div class="player_list">
+                    ${createPlayerList(detail.info.participants)}
+                </div>
+            `;
 
             return matchElement;
+        }
+
+        function createPlayerList(participants) {
+            return participants.map(p => {
+                const teamClass = p.teamId === 100 ? 'player_blue_team' : 'player_red_team';
+                return `<div class="${teamClass}">${p.summonerName}</div>`;
+            }).join('');
         }
 
         // 이벤트 리스너
