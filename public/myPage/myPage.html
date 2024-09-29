@@ -13,13 +13,11 @@
         
         function mypageRequest(){
             var tokenDataString = sessionStorage.getItem('accessToken');
-            console.log(tokenData)
-
             var tokenData = JSON.parse(tokenDataString);
-            console.log(accessToken)
+            console.log(tokenData);
             // accessToken 값을 추출
             var accessToken = tokenData.accessToken;
-
+            console.log(accessToken);
             // AJAX 요청 보내기
             $.ajax({
                 url: "https://findd.findduo.site/mypage/mypage",
@@ -65,7 +63,10 @@
                 }
             });
             }// 로컬 스토리지에서 토큰 데이터를 가져오기
-        window.onlaoad=mypageRequest();
+        window.onlaoad=function(){
+            mypageRequest();
+            log_in();
+        }
 
     </script>
     <style>
