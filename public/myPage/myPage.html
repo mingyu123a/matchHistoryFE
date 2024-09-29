@@ -11,33 +11,37 @@
     <script src="../login.js"></script>
     <script>
         // 마이페이지 정보를 요청하고 표시하는 함수
-        function mypageRequest() {
-            // 세션 스토리지에서 토큰 데이터 가져오기
-            const tokenData = JSON.parse(sessionStorage.getItem('accessToken'));
-            const accessToken = tokenData.accessToken;
-
-            // AJAX 요청 보내기
-            $.ajax({
-                url: "https://findd.findduo.site/mypage/mypage",
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken
-                },
-                success: function (result) {
-                    // 응답 결과를 로컬 스토리지에 저장
-                    localStorage.setItem("matchListResponse", JSON.stringify(result));
-
-                    // 프로필 정보 업데이트
-                    updateProfileInfo(result);
-
-                    // 모스트 챔피언 정보 업데이트
-                    updateMostChampions(result);
-                },
-                error: function (request, status, error) {
-                    console.error("마이페이지 정보 요청 실패:", error);
-                    alert("마이페이지 정보를 불러오는데 실패했습니다.");
+        async function mypageRequest() {
+            try {
+                // 세션 스토리지에서 토큰 데이터 가져오기
+                const tokenData = JSON.parse(sessionStorage.getItem('accessToken'));
+                if (!tokenData || !tokenData.accessToken) {
+                    throw new Error('로그인이 필요합니다.');
                 }
-            });
+                const accessToken = tokenData.accessToken;
+
+                // AJAX 요청 보내기
+                const result = await $.ajax({
+                    url: "https://findd.findduo.site/mypage/mypage",
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + accessToken
+                    }
+                });
+
+                // 응답 결과를 로컬 스토리지에 저장
+                localStorage.setItem("matchListResponse", JSON.stringify(result));
+
+                // 프로필 정보 업데이트
+                updateProfileInfo(result);
+
+                // 모스트 챔피언 정보 업데이트
+                updateMostChampions(result);
+            } catch (error) {
+                console.error("마이페이지 정보 요청 실패:", error);
+                alert("마이페이지 정보를 불러오는데 실패했습니다. 로그인 상태를 확인해주세요.");
+                window.location.href = '../index.html'; // 메인 페이지로 리다이렉트
+            }
         }
 
         // 프로필 정보를 업데이트하는 함수
@@ -76,11 +80,14 @@
             wrappedBox.innerHTML = champHtml;
         }
 
-        // 페이지 로드 시 마이페이지 정보 요청 및 로그인 상태 확인
-        window.onload = function() {
-            mypageRequest();
-            checkLogin();
-        };
+        // 페이지 로드 시 실행될 함수
+        async function initPage() {
+            await checkLoginStatus(); // login.js에 정의된 함수
+            await mypageRequest();
+        }
+
+        // DOMContentLoaded 이벤트 리스너 추가
+        document.addEventListener('DOMContentLoaded', initPage);
     </script>
     <style>
         h1 {
@@ -188,7 +195,7 @@
 
                     </button>
                 </div>
-                <div class="container container-one" onclick="checkLogin()">
+                <div class="container container-one" onclick="handleLoginLogout()">
                     <button class="log_in_out_btn">
                       로그인
   
