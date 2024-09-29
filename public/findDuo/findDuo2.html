@@ -25,23 +25,25 @@
                 success: function(result) {
                     console.log(result);
                     localStorage.setItem("matchListResponse", result);
-                    var myPage_info = document.getElementsByClassName("myPage_info");
-                    var wrapped_box = document.getElementsByClassName("wrapped_box");
+                    var myInfoElements = document.querySelectorAll(".myInfo .myPage_info");
+                    var duoInfoElements = document.querySelectorAll(".duoInfo .myPage_info");
+                    var myWrappedBox = document.querySelector(".myInfo .wrapped_box");
+                    var duoWrappedBox = document.querySelector(".duoInfo .wrapped_box");
 
                     // 내 정보 업데이트
-                    myPage_info[0].innerHTML = `<strong>Riot ID:</strong> ${result.riotId}`;
-                    myPage_info[1].innerHTML = `<strong>email:</strong> ${result.email}`;
-                    myPage_info[2].innerHTML = `<strong>tier:</strong> ${result.tier}`;
-                    myPage_info[3].innerHTML = `<strong>rank:</strong> ${result.rank}`;
-                    myPage_info[4].innerHTML = `<strong>leaguePoints:</strong> ${result.leaguePoints}P`;
-                    myPage_info[5].innerHTML = `<strong>wins:</strong> ${result.wins} 승`;
-                    myPage_info[6].innerHTML = `<strong>losses:</strong> ${result.losses} 패`;
+                    myInfoElements[0].innerHTML = `<strong>Riot ID:</strong> ${result.riotId}`;
+                    myInfoElements[1].innerHTML = `<strong>email:</strong> ${result.email}`;
+                    myInfoElements[2].innerHTML = `<strong>tier:</strong> ${result.tier}`;
+                    myInfoElements[3].innerHTML = `<strong>rank:</strong> ${result.rank}`;
+                    myInfoElements[4].innerHTML = `<strong>leaguePoints:</strong> ${result.leaguePoints}P`;
+                    myInfoElements[5].innerHTML = `<strong>wins:</strong> ${result.wins} 승`;
+                    myInfoElements[6].innerHTML = `<strong>losses:</strong> ${result.losses} 패`;
 
                     var champ_mastery_image1 = "https://lolcdn.darkintaqt.com/cdn/champion/" + result.championId[0] + "/tile";
                     var champ_mastery_image2 = "https://lolcdn.darkintaqt.com/cdn/champion/" + result.championId[1] + "/tile";
                     var champ_mastery_image3 = "https://lolcdn.darkintaqt.com/cdn/champion/" + result.championId[2] + "/tile";
 
-                    wrapped_box[0].innerHTML = `
+                    myWrappedBox.innerHTML = `
                         <div class="champ-stats">
                             <img src="${champ_mastery_image1}" alt="" width="46px">
                             <div class="num">${Number(result.championPoints[0]).toLocaleString()}</div>
@@ -53,6 +55,33 @@
                         <div class="champ-stats">
                             <img src="${champ_mastery_image3}" alt="" width="46px">
                             <div class="num">${Number(result.championPoints[2]).toLocaleString()}</div>
+                        </div>`;
+
+                    // 찾은 상대 정보 업데이트 (예시 데이터 사용)
+                    duoInfoElements[0].innerHTML = `<strong>Riot ID:</strong> 상대_riotId`;
+                    duoInfoElements[1].innerHTML = `<strong>email:</strong> 상대_email`;
+                    duoInfoElements[2].innerHTML = `<strong>tier:</strong> 상대_tier`;
+                    duoInfoElements[3].innerHTML = `<strong>rank:</strong> 상대_rank`;
+                    duoInfoElements[4].innerHTML = `<strong>leaguePoints:</strong> 상대_leaguePointsP`;
+                    duoInfoElements[5].innerHTML = `<strong>wins:</strong> 상대_wins 승`;
+                    duoInfoElements[6].innerHTML = `<strong>losses:</strong> 상대_losses 패`;
+
+                    var duo_champ_mastery_image1 = "https://lolcdn.darkintaqt.com/cdn/champion/상대_championId1/tile";
+                    var duo_champ_mastery_image2 = "https://lolcdn.darkintaqt.com/cdn/champion/상대_championId2/tile";
+                    var duo_champ_mastery_image3 = "https://lolcdn.darkintaqt.com/cdn/champion/상대_championId3/tile";
+
+                    duoWrappedBox.innerHTML = `
+                        <div class="champ-stats">
+                            <img src="${duo_champ_mastery_image1}" alt="" width="46px">
+                            <div class="num">상대_championPoints1</div>
+                        </div>
+                        <div class="champ-stats">
+                            <img src="${duo_champ_mastery_image2}" alt="" width="46px">
+                            <div class="num">상대_championPoints2</div>
+                        </div>
+                        <div class="champ-stats">
+                            <img src="${duo_champ_mastery_image3}" alt="" width="46px">
+                            <div class="num">상대_championPoints3</div>
                         </div>`;
                 },
                 error: function(request, status, error) {
@@ -192,7 +221,7 @@
         </div>
     </div>
     <div class="middle">
-        <div class="profile-box">
+        <div class="profile-box myInfo">
             <div class="group">
                 <p class="simple_info">내 정보</p>
                 <p class="myPage_info"></p>
@@ -206,7 +235,7 @@
             <div class="wrapped_box"></div>
         </div>
 
-        <div class="profile-box">
+        <div class="profile-box duoInfo">
             <div class="group">
                 <p class="simple_info">찾은 상대 정보</p>
                 <p class="myPage_info"></p>
