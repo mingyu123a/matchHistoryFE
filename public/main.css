@@ -109,19 +109,7 @@ html {
   }
 
 
-
-  .fill-one {
-    position: absolute;
-    background-image: linear-gradient(to right, #E040FB, #00BCD4);
-    height: 70px;
-    width: 420px;
-    border-radius: 5px;
-    margin: -40px 0 0 -140px;
-    z-index: -1;
-    transition: all 0.4s ease;
-  }
-
-  .container-one:hover .fill-one {
+  .container-one:hover {
     -webkit-transform: translateX(100px);
     -moz-transform: translateX(100px);
     transform: translateX(100px);
