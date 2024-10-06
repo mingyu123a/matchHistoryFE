@@ -425,22 +425,27 @@
             padding: 20px;
             margin: auto;
             margin-top: 2%;
-            width: 45%;
-            height: 300px;
-            font-size: 30px;
+            width: 35%; /* 45%에서 35%로 줄임 */
+            height: 200px; /* 300px에서 200px로 줄임 */
+            font-size: 24px; /* 30px에서 24px로 줄임 */
         }
 
         #top_text {
             text-align: left;
+            flex: 1; /* 추가: 왼쪽 텍스트가 가능한 공간을 차지하도록 함 */
+            margin-right: 20px; /* 추가: 오른쪽 요소와의 간격 */
         }
 
         #tier_info {
             text-align: center;
+            flex: 0 0 auto; /* 추가: 내용에 맞게 크기 조정 */
         }
 
         #tier_info img {
             display: block;
             margin: 0 auto;
+            width: 60px; /* 75px에서 60px로 줄임 */
+            height: 60px; /* 75px에서 60px로 줄임 */
         }
 
 
