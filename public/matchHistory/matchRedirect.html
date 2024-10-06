@@ -29,14 +29,17 @@
                 myAccountIndex = 0; //게임내 내 아이디 번호
                 var kda = "default" //kda조회를 위한 변수선언
                 var profile = document.getElementById("top_text")
+                var tierInfo = document.getElementById("tier_info")
                 var mode = "모드"
                 const rankImageUrl = `https://opgg-static.akamaized.net/images/medals_new/${tierResponse.tier.toLowerCase()}.png?image=q_auto:good,f_webp,w_144&v=1724034092925`;
                 profile.innerHTML = `
                     ${summoner}<br>
-                    <img src="${rankImageUrl}" alt="${tierResponse.tier}" style="width: 75px; height: 75px;">
-                    ${tierResponse.tier} ${tierResponse.rank}<br>
                     ${tierResponse.leaguPoints} LP<br>
                     ${tierResponse.wins}승 ${tierResponse.losses}패
+                `;
+                tierInfo.innerHTML = `
+                    <img src="${rankImageUrl}" alt="${tierResponse.tier}" style="width: 75px; height: 75px;">
+                    <div>${tierResponse.tier} ${tierResponse.rank}</div>
                 `;
                 match_info = document.getElementsByClassName("match_info");
                 for (let i = 0; i < 10; i++) {
@@ -414,6 +417,9 @@
 
 
         #top_container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             border: 2px solid rgb(249, 156, 171);
             border-radius: 15px;
             padding: 20px;
@@ -421,16 +427,21 @@
             margin-top: 2%;
             width: 45%;
             height: 300px;
-            text-align: center;
             font-size: 30px;
         }
 
         #top_text {
-            margin-top: 5%;
-            margin-right: 40%;
+            text-align: left;
         }
 
+        #tier_info {
+            text-align: center;
+        }
 
+        #tier_info img {
+            display: block;
+            margin: 0 auto;
+        }
 
 
         .matchHistory {
@@ -663,7 +674,8 @@
 
     <div class="middle">
         <div id="top_container">
-            <div id="top_text">Top</div>
+            <div id="top_text"></div>
+            <div id="tier_info"></div>
         </div>
         <div id="matchHistoryContainer">
             <div id="left">
