@@ -30,7 +30,14 @@
                 var kda = "default" //kda조회를 위한 변수선언
                 var profile = document.getElementById("top_text")
                 var mode = "모드"
-                profile.innerHTML = summoner + '\n' + tierResponse.tier + ` ${tierResponse.rank}` + "<br>" + `${tierResponse.leaguPoints} LP` + "<br>" + `${tierResponse.wins}승` + `${tierResponse.losses}패`
+                const rankImageUrl = `https://opgg-static.akamaized.net/images/medals_new/${tierResponse.tier.toLowerCase()}.png?image=q_auto:good,f_webp,w_144&v=1724034092925`;
+                profile.innerHTML = `
+                    ${summoner}<br>
+                    <img src="${rankImageUrl}" alt="${tierResponse.tier}" style="width: 50px; height: 50px;"><br>
+                    ${tierResponse.tier} ${tierResponse.rank}<br>
+                    ${tierResponse.leaguPoints} LP<br>
+                    ${tierResponse.wins}승 ${tierResponse.losses}패
+                `;
                 match_info = document.getElementsByClassName("match_info");
                 for (let i = 0; i < 10; i++) {
                     $.ajax({
