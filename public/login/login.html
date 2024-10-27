@@ -9,6 +9,64 @@
   <link href="../login/login.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="../login.js"></script>
+  <style>
+    .login-btn {
+      background-color: rgba(255, 192, 203, 0.7); /* 연한 핑크색 */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+      transition: background-color 0.3s; /* 부드러운 전환 효과 */
+    }
+
+    .login-btn:hover {
+      background-color: rgba(255, 105, 180, 0.8); /* 마우스를 올렸을 때 진한 핑크색 */
+    }
+
+    .riot-btn {
+      background-color: red; /* 라이엇 계정 버튼의 기본 배경색 */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+      transition: background-color 0.3s; /* 부드러운 전환 효과 */
+    }
+
+    .riot-btn:hover {
+      background-color: rgba(200, 0, 0, 0.8); /* 마우스를 올렸을 때의 색상 */
+    }
+
+    .login_box button {
+      background-color: rgba(248, 100, 124, 0.7); /* 연한 핑크색 */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+      transition: background-color 0.3s; /* 부드러운 전환 효과 */
+    }
+
+    .login_box button:hover {
+      background-color: rgba(255, 0, 128, 0.8); /* 마우스를 올렸을 때 진한 핑크색 */
+    }
+
+    .login_box .riot-btn {
+      margin-top: 10px;
+      background-color: rgba(250, 17, 17, 0.7); /* 연한 빨간색 */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+      transition: background-color 0.3s; /* 부드러운 전환 효과 */
+    }
+
+    .login_box .riot-btn:hover {
+      background-color: red; /* 마우스를 올렸을 때 진한 빨간색 */
+    }
+  </style>
 </head>
 
 <body>
@@ -84,11 +142,11 @@
     <form>
       <input type="text" placeholder="이메일" required>
       <input type="password" placeholder="비밀번호" required>
-      <button id="submit_btn" type="submit">로그인</button>
+      <button id="submit_btn" type="submit" class="login-btn">로그인</button>
     </form>
     <div></div>
-    <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=6802cec4469f116bf22d222a9b62a871&redirect_uri=http://127.0.0.1:5500/project/Match/login/redirect.html"
-      class="kakao"><img src="../img/kakao_login_medium_wide.png" alt=""></button>
+    <a href="https://auth.riotgames.com/authorize?client_id=329606cb-fbea-4f9d-859a-b05c10c778a2&redirect_uri=https://findd.findduo.site/oauth/callback&response_type=code&scope=openid+offline_access"
+      class="riot"><button class="riot-btn">라이엇 계정으로 로그인</button></a>
 
   </div>
   <div class="bottom">

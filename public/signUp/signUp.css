@@ -16,13 +16,22 @@
 }
 
 .signup_box button {
-    background-color: rgb(250, 205, 228);
     color: #fff;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
     z-index: 1000;
 }
+.signup_box button {
+    background-color: rgba(248, 100, 124, 0.7); /* 진한 핑크색 */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    transition: background-color 0.3s; /* 부드러운 전환 효과 */
+  }
+
 
 .signup_box button:hover {
     background-color: rgb(221, 86, 255);

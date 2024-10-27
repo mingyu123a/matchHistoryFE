@@ -95,6 +95,26 @@
       color: black;
       font-weight: bold;
     }
+
+
+    .login_box button:hover {
+      background-color: rgba(255, 192, 203, 0.9); /* 마우스를 올렸을 때 연한 핑크색 */
+    }
+
+    .signup_box .riot-btn {
+      margin-top: 10px;
+      background-color: rgba(255, 0, 0, 0.7); /* 연한 빨간색 */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+      transition: background-color 0.3s; /* 부드러운 전환 효과 */
+    }
+
+    .signup_box .riot-btn:hover {
+      background-color: red; /* 마우스를 올렸을 때 진한 빨간색 */
+    }
   </style>
 </head>
 
@@ -172,12 +192,10 @@
     <h2>회원가입</h2>
     <form onsubmit="changeForm(document.getElementById('id1').value)">
       <input type="email" id="id1" placeholder="이메일" required>
-      <button id="signUp" type="submit">완료</button>
+      <button id="signUp" type="submit" class="login-btn">완료</button>
     </form>
-    <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=6802cec4469f116bf22d222a9b62a871&redirect_uri=http://127.0.0.1:5500/project/Match/login/redirect.html
-            ">
-      <img class="kakao" src="../img/kakao_login_medium_wide.png" alt="">
-    </a>
+    <a href="https://auth.riotgames.com/authorize?client_id=329606cb-fbea-4f9d-859a-b05c10c778a2&redirect_uri=https://findd.findduo.site/oauth/callback&response_type=code&scope=openid+offline_access"
+      class="riot"><button class="riot-btn">라이엇 계정으로 로그인</button></a>
   </div>
   <div class="bottom">
     <div class="pink">
