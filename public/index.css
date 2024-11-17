@@ -12,3 +12,6 @@
     margin: 3px;
     padding: 10px;
 }
+.download-button {
+    z-index: 10000;
+}
